@@ -337,7 +337,7 @@ v0.47.5.
 - Bump `github.com/CosmWasm/wasmvm` from 1.4.0 to 1.5.0 ([#1629](https://github.com/NibiruChain/nibiru/pull/1629), [#1657](https://github.com/NibiruChain/nibiru/pull/1657))
 - Bump `google.golang.org/grpc` from 1.58.2 to 1.59.0 ([#1633](https://github.com/NibiruChain/nibiru/pull/1633), [#1643](https://github.com/NibiruChain/nibiru/pull/1643))
 - Bump `golang.org/x/net` from 0.12.0 to 0.17.0 ([#1634](https://github.com/NibiruChain/nibiru/pull/1634))
-- Bump `github.com/cosmos/ibc-go/v7` from 7.3.0 to 7.3.1 ([#1647](https://github.com/NibiruChain/nibiru/pull/1647))
+- Bump `github.com/cosmos/ibc-go/v8` from 7.3.0 to 7.3.1 ([#1647](https://github.com/NibiruChain/nibiru/pull/1647))
 - Bump `github.com/CosmWasm/wasmd` from 0.40.2 to 0.43.0 ([#1660](https://github.com/NibiruChain/nibiru/pull/1660))
 - Bump `github.com/CosmWasm/wasmd` from 0.43.0 to 0.44.0 ([#1666](https://github.com/NibiruChain/nibiru/pull/1666))
 
@@ -508,9 +508,9 @@ NOTE: It's pragmatic to assume that any change prior to v1.0.0 was state machine
 - Bump `github.com/gin-gonic/gin` from 1.8.1 to 1.9.1 (#1409)
 - Bump `github.com/spf13/viper` from 1.15.0 to 1.16.0 (#1436)
 - Bump `github.com/prometheus/client_golang` from 1.15.1 to 1.16.0 (#1431)
-- Bump `github.com/cosmos/ibc-go/v7` from 7.1.0 to 7.3.0 (#1445, [#1562](https://github.com/NibiruChain/nibiru/pull/1562))
+- Bump `github.com/cosmos/ibc-go/v8` from 7.1.0 to 7.3.0 (#1445, [#1562](https://github.com/NibiruChain/nibiru/pull/1562))
 - Bump `bufbuild/buf-setup-action` from 1.21.0 to 1.26.1 (#1449, #1469, #1505, #1510, [#1537](https://github.com/NibiruChain/nibiru/pull/1537), [#1540](https://github.com/NibiruChain/nibiru/pull/1540), [#1544](https://github.com/NibiruChain/nibiru/pull/1544))
-- Bump `google.golang.org/protobuf` from 1.30.0 to 1.31.0 (#1450)
+- Bump `github.com/golang/protobuf` from 1.30.0 to 1.31.0 (#1450)
 - Bump `cosmossdk.io/errors` from 1.0.0-beta.7 to 1.0.0 (#1499)
 - Bump `github.com/holiman/uint256` from 1.2.2 to 1.2.3 (#1504)
 - Bump `docker/build-push-action` from 4 to 5 ([#1572](https://github.com/NibiruChain/nibiru/pull/1572))
@@ -529,9 +529,9 @@ NOTE: It's pragmatic to assume that any change prior to v1.0.0 was state machine
 - Bump `github.com/gin-gonic/gin` from 1.8.1 to 1.9.1 (#1409)
 - Bump `github.com/spf13/viper` from 1.15.0 to 1.16.0 (#1436)
 - Bump `github.com/prometheus/client_golang` from 1.15.1 to 1.16.0 (#1431)
-- Bump `github.com/cosmos/ibc-go/v7` from 7.1.0 to 7.3.0 (#1445, [#1562](https://github.com/NibiruChain/nibiru/pull/1562))
+- Bump `github.com/cosmos/ibc-go/v8` from 7.1.0 to 7.3.0 (#1445, [#1562](https://github.com/NibiruChain/nibiru/pull/1562))
 - Bump `bufbuild/buf-setup-action` from 1.21.0 to 1.26.1 (#1449, #1469, #1505, #1510, [#1537](https://github.com/NibiruChain/nibiru/pull/1537), [#1540](https://github.com/NibiruChain/nibiru/pull/1540), [#1544](https://github.com/NibiruChain/nibiru/pull/1544))
-- Bump `google.golang.org/protobuf` from 1.30.0 to 1.31.0 (#1450)
+- Bump `github.com/golang/protobuf` from 1.30.0 to 1.31.0 (#1450)
 - Bump `cosmossdk.io/errors` from 1.0.0-beta.7 to 1.0.0 (#1499)
 - Bump `github.com/holiman/uint256` from 1.2.2 to 1.2.3 (#1504)
 - Bump `actions/checkout` from 3 to 4 ([#1563](https://github.com/NibiruChain/nibiru/pull/1563))
@@ -645,7 +645,7 @@ NOTE: It's pragmatic to assume that any change prior to v1.0.0 was state machine
 - [#1231](https://github.com/NibiruChain/nibiru/pull/1231) - chore(deps): bump github.com/cosmos/ibc-go/v4 from 4.2.0 to 4.3.0 #1231
 - [#1230](https://github.com/NibiruChain/nibiru/pull/1230) - chore(deps): Bump github.com/holiman/uint256 from 1.2.1 to 1.2.2
 - [#1223](https://github.com/NibiruChain/nibiru/pull/1223) - chore(deps): bump github.com/golang/protobuf from 1.5.2 to 1.5.3
-- [#1222](https://github.com/NibiruChain/nibiru/pull/1222) - chore(deps): bump google.golang.org/protobuf from 1.28.2-0.20220831092852-f930b1dc76e8 to 1.29.0
+- [#1222](https://github.com/NibiruChain/nibiru/pull/1222) - chore(deps): bump github.com/golang/protobuf from 1.28.2-0.20220831092852-f930b1dc76e8 to 1.29.0
 - [#1211](https://github.com/NibiruChain/nibiru/pull/1211) - chore(deps): Bump github.com/stretchr/testify from 1.8.1 to 1.8.2
 
 - [#1283](https://github.com/NibiruChain/nibiru/pull/1283) - chore(deps): bump github.com/prometheus/client_golang from 1.14.0 to 1.15.0
@@ -957,7 +957,7 @@ Summary: Changes up to pull request #1208
 
 ### Improvements
 
-- [#775](https://github.com/NibiruChain/nibiru/pull/775) - bump google.golang.org/protobuf from 1.28.0 to 1.28.1
+- [#775](https://github.com/NibiruChain/nibiru/pull/775) - bump github.com/golang/protobuf from 1.28.0 to 1.28.1
 - [#768](https://github.com/NibiruChain/nibiru/pull/768) - add simulation tests to make file
 - [#767](https://github.com/NibiruChain/nibiru/pull/767) - add fluctuation limit checks on `OpenPosition`.
 - [#786](https://github.com/NibiruChain/nibiru/pull/786) - add genesis params in localnet script.

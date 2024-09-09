@@ -6,7 +6,7 @@ import (
 
 	"github.com/NibiruChain/collections"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdkstore "github.com/cosmos/cosmos-sdk/store/types"
+	sdkstore "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	gethcore "github.com/ethereum/go-ethereum/core/types"

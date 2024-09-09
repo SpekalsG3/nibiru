@@ -2,21 +2,21 @@ package keepers
 
 import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	_ "github.com/cosmos/cosmos-sdk/client/docs/statik"
+	// _ "github.com/cosmos/cosmos-sdk/client/docs/statik"
+	feegrantkeeper "cosmossdk.io/x/feegrant/keeper"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
-	capabilitykeeper "github.com/cosmos/cosmos-sdk/x/capability/keeper"
 	consensusparamkeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
-	feegrantkeeper "github.com/cosmos/cosmos-sdk/x/feegrant/keeper"
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
+	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
 
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
 	// ---------------------------------------------------------------
 	// IBC imports
 
-	ibcmock "github.com/cosmos/ibc-go/v7/testing/mock"
+	ibcmock "github.com/cosmos/ibc-go/v8/testing/mock"
 
 	// ---------------------------------------------------------------
 	// Nibiru Custom Modules

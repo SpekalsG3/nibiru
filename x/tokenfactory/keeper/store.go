@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/NibiruChain/collections"
 	sdkcodec "github.com/cosmos/cosmos-sdk/codec"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
+	storetypes "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	tftypes "github.com/NibiruChain/nibiru/v2/x/tokenfactory/types"
