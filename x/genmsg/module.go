@@ -36,6 +36,12 @@ type AppModule struct {
 	router MessageRouter
 }
 
+// IsOnePerModuleType implements the depinject.OnePerModuleType interface.
+func (AppModule) IsOnePerModuleType() {}
+
+// IsAppModule implements the appmodule.AppModule interface.
+func (AppModule) IsAppModule() {}
+
 func (a AppModule) Name() string { return ModuleName }
 
 func (AppModule) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
