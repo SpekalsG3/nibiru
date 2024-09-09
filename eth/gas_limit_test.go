@@ -8,6 +8,7 @@ import (
 	"github.com/NibiruChain/nibiru/v2/eth"
 	"github.com/NibiruChain/nibiru/v2/x/evm/evmtest"
 
+	storetypes "cosmossdk.io/store/types"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 )
 
@@ -37,8 +38,8 @@ func (s *Suite) TestGasMeter() {
 	s.False(meter.IsOutOfGas())
 
 	// Consume large amount fo gas to test overflow handling
-	meter.ConsumeGas(sdk.Gas(math.MaxUint64/2), "consume half max uint64")
-	s.Require().Panics(func() { meter.ConsumeGas(sdk.Gas(math.MaxUint64/2)+2, "panic") })
+	meter.ConsumeGas(storetypes.Gas(math.MaxUint64/2), "consume half max uint64")
+	s.Require().Panics(func() { meter.ConsumeGas(storetypes.Gas(math.MaxUint64/2)+2, "panic") })
 	s.Require().Panics(func() { meter.RefundGas(meter.GasConsumed()+1, "refund greater than consumed") })
 
 	// Additional tests for RefundGas
@@ -55,7 +56,7 @@ func (s *Suite) TestGasMeter() {
 
 	// Additional tests for IsPastLimit and IsOutOfGas with high gas usage
 	s.Equal(uint64(math.MaxUint64), meter.GasRemaining())
-	meter.ConsumeGas(sdk.Gas(math.MaxUint64-1), "consume nearly all gas")
+	meter.ConsumeGas(storetypes.Gas(math.MaxUint64-1), "consume nearly all gas")
 	s.Equal(uint64(math.MaxUint64), meter.GasRemaining())
 	s.Require().False(meter.IsPastLimit())
 	s.Require().False(meter.IsOutOfGas())
