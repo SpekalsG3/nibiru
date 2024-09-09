@@ -156,6 +156,12 @@ func (am AppModule) EndBlock(_ context.Context) ([]abci.ValidatorUpdate, error) 
 	return []abci.ValidatorUpdate{}, nil
 }
 
+// IsOnePerModuleType implements the depinject.OnePerModuleType interface.
+func (am AppModule) IsOnePerModuleType() {}
+
+// IsAppModule implements the appmodule.AppModule interface.
+func (am AppModule) IsAppModule() {}
+
 //----------------------------------------------------------------------------
 // AppModuleSimulation functions
 //----------------------------------------------------------------------------
