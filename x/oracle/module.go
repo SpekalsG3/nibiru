@@ -144,12 +144,14 @@ func (am AppModule) ExportGenesis(ctx sdk.Context, cdc codec.JSONCodec) json.Raw
 func (AppModule) ConsensusVersion() uint64 { return 1 }
 
 // BeginBlock returns the begin blocker for the oracle module.
-func (AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {}
+func (AppModule) BeginBlock(_ context.Context) error {
+	return nil
+}
 
 // EndBlock returns the end blocker for the oracle module.
-func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-	EndBlocker(ctx, am.keeper)
-	return []abci.ValidatorUpdate{}
+func (am AppModule) EndBlock(ctx context.Context) ([]abci.ValidatorUpdate, error) {
+	EndBlocker(sdk.UnwrapSDKContext(ctx), am.keeper)
+	return []abci.ValidatorUpdate{}, nil
 }
 
 //____________________________________________________________________________

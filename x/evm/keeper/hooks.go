@@ -13,15 +13,15 @@ import (
 )
 
 // BeginBlock hook for the EVM module.
-func (k *Keeper) BeginBlock(ctx sdk.Context, _ abci.RequestBeginBlock) {}
+func (k *Keeper) BeginBlock(ctx sdk.Context) {}
 
 // EndBlock also retrieves the bloom filter value from the transient store and commits it to the
-func (k *Keeper) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+func (k *Keeper) EndBlock(ctx sdk.Context) ([]abci.ValidatorUpdate, error) {
 	ctx = ctx.WithGasMeter(sdk.NewInfiniteGasMeter())
 	bloom := gethcoretypes.BytesToBloom(k.EvmState.GetBlockBloomTransient(ctx).Bytes())
 	_ = ctx.EventManager().EmitTypedEvent(&evm.EventBlockBloom{
 		Bloom: eth.BytesToHex(bloom.Bytes()),
 	})
 	// The bloom logic doesn't update the validator set.
-	return []abci.ValidatorUpdate{}
+	return []abci.ValidatorUpdate{}, nil
 }

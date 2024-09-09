@@ -147,13 +147,14 @@ func (am AppModule) RegisterServices(cfg module.Configurator) {
 }
 
 // BeginBlock executes all ABCI BeginBlock logic respective to the fees module.
-func (am AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {
+func (am AppModule) BeginBlock(_ context.Context) error {
+	return nil
 }
 
 // EndBlock executes all ABCI EndBlock logic respective to the fee-share module. It
 // returns no validator updates.
-func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-	return []abci.ValidatorUpdate{}
+func (am AppModule) EndBlock(_ context.Context) ([]abci.ValidatorUpdate, error) {
+	return []abci.ValidatorUpdate{}, nil
 }
 
 // InitGenesis performs the fees module's genesis initialization. It returns
@@ -171,6 +172,12 @@ func (am AppModule) ExportGenesis(ctx sdk.Context, cdc sdkcodec.JSONCodec) json.
 	gs := ExportGenesis(ctx, am.keeper)
 	return cdc.MustMarshalJSON(gs)
 }
+
+// IsOnePerModuleType implements the depinject.OnePerModuleType interface.
+func (am AppModule) IsOnePerModuleType() {}
+
+// IsAppModule implements the appmodule.AppModule interface.
+func (am AppModule) IsAppModule() {}
 
 //----------------------------------------------------------------------------
 // AppModuleSimulation functions

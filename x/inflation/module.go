@@ -124,13 +124,14 @@ func (am AppModule) RegisterServices(cfg module.Configurator) {
 }
 
 // BeginBlock returns the begin blocker for the inflation module.
-func (am AppModule) BeginBlock(_ sdk.Context, _ abci.RequestBeginBlock) {
+func (am AppModule) BeginBlock(_ context.Context) error {
+	return nil
 }
 
 // EndBlock returns the end blocker for the inflation module. It returns no validator
 // updates.
-func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-	return []abci.ValidatorUpdate{}
+func (am AppModule) EndBlock(_ context.Context) ([]abci.ValidatorUpdate, error) {
+	return []abci.ValidatorUpdate{}, nil
 }
 
 // InitGenesis performs genesis initialization for the inflation module. It returns
