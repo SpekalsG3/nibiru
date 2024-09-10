@@ -812,8 +812,8 @@ func ModuleBasicManager() module.BasicManager {
 		distr.AppModuleBasic{},
 		NewGovModuleBasic(
 			paramsclient.ProposalHandler,
-			upgradeclient.LegacyProposalHandler,
-			upgradeclient.LegacyCancelProposalHandler,
+// 			upgradeclient.LegacyProposalHandler,
+// 			upgradeclient.LegacyCancelProposalHandler,
 		),
 		params.AppModuleBasic{},
 		CrisisModule{},
