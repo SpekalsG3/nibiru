@@ -26,7 +26,6 @@ require (
 	cosmossdk.io/math v1.3.0
 	cosmossdk.io/simapp v0.0.0-20230608160436-666c345ad23d
 	github.com/MakeNowJust/heredoc/v2 v2.0.1
-	github.com/armon/go-metrics v0.4.1
 	github.com/btcsuite/btcd v0.24.0
 	github.com/btcsuite/btcd/btcutil v1.1.5
 	github.com/cosmos/go-bip39 v1.0.0
@@ -67,6 +66,7 @@ require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/golang/protobuf v1.5.4
 	github.com/gorilla/websocket v1.5.0
+	github.com/hashicorp/go-metrics v0.5.3
 	github.com/rs/cors v1.8.3
 	github.com/status-im/keycard-go v0.0.0-20190316090335-8537d3370df4
 	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8
@@ -169,7 +169,6 @@ require (
 	github.com/hashicorp/go-getter v1.7.5 // indirect
 	github.com/hashicorp/go-hclog v1.5.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
-	github.com/hashicorp/go-metrics v0.5.3 // indirect
 	github.com/hashicorp/go-plugin v1.5.2 // indirect
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
