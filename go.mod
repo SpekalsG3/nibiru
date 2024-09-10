@@ -1,6 +1,8 @@
 module github.com/NibiruChain/nibiru/v2
 
-go 1.21
+go 1.22.2
+
+toolchain go1.23.1
 
 require (
 	github.com/CosmWasm/wasmd v0.53.0
@@ -9,7 +11,7 @@ require (
 
 	// Consenus Engine
 	github.com/cometbft/cometbft v0.38.11
-	github.com/cometbft/cometbft-db v0.11.0
+	github.com/cosmos/cosmos-db v1.0.2
 
 	// Cosmos-SDK and IBC
 	github.com/cosmos/cosmos-proto v1.0.0-beta.5
@@ -55,12 +57,13 @@ require (
 
 require (
 	cosmossdk.io/collections v0.4.0
+	cosmossdk.io/log v1.4.1
 	cosmossdk.io/store v1.1.0
-	cosmossdk.io/tools/rosetta v0.2.1
 	cosmossdk.io/x/evidence v0.1.1
 	cosmossdk.io/x/feegrant v0.1.1
 	cosmossdk.io/x/upgrade v0.1.4
 	github.com/cosmos/ibc-go/modules/capability v1.0.1
+	github.com/cosmos/rosetta v0.50.9
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc
 	github.com/golang/protobuf v1.5.4
 	github.com/gorilla/websocket v1.5.0
@@ -81,7 +84,6 @@ require (
 	cosmossdk.io/client/v2 v2.0.0-beta.3 // indirect
 	cosmossdk.io/core v0.11.1 // indirect
 	cosmossdk.io/depinject v1.0.0 // indirect
-	cosmossdk.io/log v1.4.1 // indirect
 	cosmossdk.io/x/circuit v0.1.1 // indirect
 	cosmossdk.io/x/nft v0.1.1 // indirect
 	cosmossdk.io/x/tx v0.13.4 // indirect
@@ -91,6 +93,8 @@ require (
 	github.com/CosmWasm/wasmvm/v2 v2.1.2 // indirect
 	github.com/DataDog/datadog-go v3.2.0+incompatible // indirect
 	github.com/DataDog/zstd v1.5.5 // indirect
+	github.com/PuerkitoBio/purell v1.1.1 // indirect
+	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/StackExchange/wmi v0.0.0-20180116203802-5d049714c4a6 // indirect
 	github.com/VictoriaMetrics/fastcache v1.6.0 // indirect
 	github.com/aws/aws-sdk-go v1.44.224 // indirect
@@ -111,8 +115,8 @@ require (
 	github.com/cockroachdb/redact v1.1.5 // indirect
 	github.com/cockroachdb/tokenbucket v0.0.0-20230807174530-cc333fc44b06 // indirect
 	github.com/coinbase/rosetta-sdk-go v0.7.9 // indirect
+	github.com/cometbft/cometbft-db v0.9.1 // indirect
 	github.com/cosmos/btcutil v1.0.5 // indirect
-	github.com/cosmos/cosmos-db v1.0.2 // indirect
 	github.com/cosmos/gogogateway v1.2.0 // indirect
 	github.com/cosmos/iavl v1.2.0 // indirect
 	github.com/cosmos/ibc-go/modules/apps/callbacks v0.2.1-0.20231113120333-342c00b0f8bd // indirect
@@ -158,6 +162,7 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.5 // indirect
 	github.com/gorilla/handlers v1.5.2 // indirect
+	github.com/goware/urlx v0.3.2 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
