@@ -3,6 +3,7 @@ package types
 
 import (
 	"context"
+	"errors"
 	"math"
 	"math/rand"
 	"time"
@@ -68,43 +69,48 @@ func (sk DummyStakingKeeper) Validators() []MockValidator {
 }
 
 // Validator nolint
-func (sk DummyStakingKeeper) Validator(ctx context.Context, address sdk.ValAddress) stakingtypes.ValidatorI {
+func (sk DummyStakingKeeper) Validator(ctx context.Context, address sdk.ValAddress) (stakingtypes.ValidatorI, error) {
 	for _, validator := range sk.validators {
 		if validator.GetOperator() == address.String() {
-			return validator
+			return validator, nil
 		}
 	}
 
-	return nil
+	return nil, errors.New("Resource was not found")
 }
 
 // TotalBondedTokens nolint
-func (DummyStakingKeeper) TotalBondedTokens(_ context.Context) sdkmath.Int {
-	return sdkmath.ZeroInt()
+func (DummyStakingKeeper) TotalBondedTokens(_ context.Context) (sdkmath.Int, error) {
+	return sdkmath.ZeroInt(), nil
 }
 
 // Slash nolint
-func (DummyStakingKeeper) Slash(context.Context, sdk.ConsAddress, int64, int64, sdkmath.LegacyDec) sdkmath.Int {
-	return sdkmath.ZeroInt()
+func (DummyStakingKeeper) Slash(context.Context, sdk.ConsAddress, int64, int64, sdkmath.LegacyDec) (sdkmath.Int, error) {
+	return sdkmath.ZeroInt(), nil
 }
 
 // ValidatorsPowerStoreIterator nolint
-func (DummyStakingKeeper) ValidatorsPowerStoreIterator(ctx context.Context) storetypes.Iterator {
-	return storetypes.KVStoreReversePrefixIterator(nil, nil)
+func (DummyStakingKeeper) ValidatorsPowerStoreIterator(ctx context.Context) (storetypes.Iterator, error) {
+	return storetypes.KVStoreReversePrefixIterator(nil, nil), nil
 }
 
 // Jail nolint
-func (DummyStakingKeeper) Jail(context.Context, sdk.ConsAddress) {
+func (DummyStakingKeeper) Jail(context.Context, sdk.ConsAddress) error {
+	return nil
 }
 
 // GetLastValidatorPower nolint
-func (sk DummyStakingKeeper) GetLastValidatorPower(ctx context.Context, operator sdk.ValAddress) (power int64) {
-	return sk.Validator(ctx, operator).GetConsensusPower(sdk.DefaultPowerReduction)
+func (sk DummyStakingKeeper) GetLastValidatorPower(ctx context.Context, operator sdk.ValAddress) (power int64, err error) {
+	val, err := sk.Validator(ctx, operator)
+	if err != nil {
+		return 0, err
+	}
+	return val.GetConsensusPower(sdk.DefaultPowerReduction), nil
 }
 
 // MaxValidators returns the maximum amount of bonded validators
-func (DummyStakingKeeper) MaxValidators(context.Context) uint32 {
-	return 100
+func (DummyStakingKeeper) MaxValidators(context.Context) (uint32, error) {
+	return 100, nil
 }
 
 // PowerReduction - is the amount of staking tokens required for 1 unit of consensus-engine power
