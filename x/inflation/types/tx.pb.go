@@ -6,7 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	grpc1 "github.com/cosmos/gogoproto/grpc"
@@ -73,11 +73,11 @@ var xxx_messageInfo_MsgToggleInflation proto.InternalMessageInfo
 type MsgEditInflationParams struct {
 	Sender                string                                   `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
 	InflationEnabled      bool                                     `protobuf:"varint,2,opt,name=inflation_enabled,json=inflationEnabled,proto3" json:"inflation_enabled,omitempty"`
-	PolynomialFactors     []github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,3,rep,name=polynomial_factors,json=polynomialFactors,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"polynomial_factors,omitempty"`
+	PolynomialFactors     []sdkmath.LegacyDec                      `protobuf:"bytes,3,rep,name=polynomial_factors,json=polynomialFactors,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"polynomial_factors,omitempty"`
 	InflationDistribution *InflationDistribution                   `protobuf:"bytes,4,opt,name=inflation_distribution,json=inflationDistribution,proto3" json:"inflation_distribution,omitempty"`
-	EpochsPerPeriod       *github_com_cosmos_cosmos_sdk_types.Int  `protobuf:"bytes,5,opt,name=epochs_per_period,json=epochsPerPeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"epochs_per_period,omitempty"`
-	PeriodsPerYear        *github_com_cosmos_cosmos_sdk_types.Int  `protobuf:"bytes,6,opt,name=periods_per_year,json=periodsPerYear,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"periods_per_year,omitempty"`
-	MaxPeriod             *github_com_cosmos_cosmos_sdk_types.Int  `protobuf:"bytes,7,opt,name=max_period,json=maxPeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"max_period,omitempty"`
+	EpochsPerPeriod       *sdkmath.Int                             `protobuf:"bytes,5,opt,name=epochs_per_period,json=epochsPerPeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"epochs_per_period,omitempty"`
+	PeriodsPerYear        *sdkmath.Int                             `protobuf:"bytes,6,opt,name=periods_per_year,json=periodsPerYear,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"periods_per_year,omitempty"`
+	MaxPeriod             *sdkmath.Int                             `protobuf:"bytes,7,opt,name=max_period,json=maxPeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"max_period,omitempty"`
 }
 
 func (m *MsgEditInflationParams) Reset()         { *m = MsgEditInflationParams{} }
@@ -1028,7 +1028,7 @@ func (m *MsgEditInflationParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.PolynomialFactors = append(m.PolynomialFactors, v)
 			if err := m.PolynomialFactors[len(m.PolynomialFactors)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1100,7 +1100,7 @@ func (m *MsgEditInflationParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.EpochsPerPeriod = &v
 			if err := m.EpochsPerPeriod.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1136,7 +1136,7 @@ func (m *MsgEditInflationParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.PeriodsPerYear = &v
 			if err := m.PeriodsPerYear.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1172,7 +1172,7 @@ func (m *MsgEditInflationParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.MaxPeriod = &v
 			if err := m.MaxPeriod.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err

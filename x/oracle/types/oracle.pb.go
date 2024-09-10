@@ -6,7 +6,7 @@ package types
 import (
 	fmt "fmt"
 	github_com_NibiruChain_nibiru_v2_x_common_asset "github.com/NibiruChain/nibiru/v2/x/common/asset"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -36,7 +36,7 @@ type Params struct {
 	VotePeriod uint64 `protobuf:"varint,1,opt,name=vote_period,json=votePeriod,proto3" json:"vote_period,omitempty" yaml:"vote_period"`
 	// VoteThreshold specifies the minimum proportion of votes that must be
 	// received for a ballot to pass.
-	VoteThreshold github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,2,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"vote_threshold" yaml:"vote_threshold"`
+	VoteThreshold sdkmath.LegacyDec `protobuf:"bytes,2,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"vote_threshold" yaml:"vote_threshold"`
 	// RewardBand defines a maxium divergence that a price vote can have from the
 	// weighted median in the ballot. If a vote lies within the valid range
 	// defined by:
@@ -45,20 +45,20 @@ type Params struct {
 	// then rewards are added to the validator performance.
 	// Note that if the reward band is smaller than 1 standard
 	// deviation, the band is taken to be 1 standard deviation.a price
-	RewardBand github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,3,opt,name=reward_band,json=rewardBand,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"reward_band" yaml:"reward_band"`
+	RewardBand sdkmath.LegacyDec `protobuf:"bytes,3,opt,name=reward_band,json=rewardBand,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"reward_band" yaml:"reward_band"`
 	// The set of whitelisted markets, or asset pairs, for the module.
 	// Ex. '["unibi:uusd","ubtc:uusd"]'
 	Whitelist []github_com_NibiruChain_nibiru_v2_x_common_asset.Pair `protobuf:"bytes,4,rep,name=whitelist,proto3,customtype=github.com/NibiruChain/nibiru/v2/x/common/asset.Pair" json:"whitelist,omitempty" yaml:"whitelist"`
 	// SlashFraction returns the proportion of an oracle's stake that gets
 	// slashed in the event of slashing. `SlashFraction` specifies the exact
 	// penalty for failing a voting period.
-	SlashFraction github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,5,opt,name=slash_fraction,json=slashFraction,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"slash_fraction" yaml:"slash_fraction"`
+	SlashFraction sdkmath.LegacyDec `protobuf:"bytes,5,opt,name=slash_fraction,json=slashFraction,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"slash_fraction" yaml:"slash_fraction"`
 	// SlashWindow returns the number of voting periods that specify a
 	// "slash window". After each slash window, all oracles that have missed more
 	// than the penalty threshold are slashed. Missing the penalty threshold is
 	// synonymous with submitting fewer valid votes than `MinValidPerWindow`.
 	SlashWindow       uint64                                 `protobuf:"varint,6,opt,name=slash_window,json=slashWindow,proto3" json:"slash_window,omitempty" yaml:"slash_window"`
-	MinValidPerWindow github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,7,opt,name=min_valid_per_window,json=minValidPerWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"min_valid_per_window" yaml:"min_valid_per_window"`
+	MinValidPerWindow sdkmath.LegacyDec `protobuf:"bytes,7,opt,name=min_valid_per_window,json=minValidPerWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"min_valid_per_window" yaml:"min_valid_per_window"`
 	// Amount of time to look back for TWAP calculations.
 	// Ex: "900.000000069s" corresponds to 900 seconds and 69 nanoseconds in JSON.
 	TwapLookbackWindow time.Duration `protobuf:"bytes,8,opt,name=twap_lookback_window,json=twapLookbackWindow,proto3,stdduration" json:"twap_lookback_window,omitempty" yaml:"twap_lookback_window"`
@@ -66,7 +66,7 @@ type Params struct {
 	// considered a passing ballot. Recommended at least 4.
 	MinVoters uint64 `protobuf:"varint,9,opt,name=min_voters,json=minVoters,proto3" json:"min_voters,omitempty" yaml:"min_voters"`
 	// The validator fee ratio that is given to validators every epoch.
-	ValidatorFeeRatio github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,10,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"validator_fee_ratio" yaml:"validator_fee_ratio"`
+	ValidatorFeeRatio sdkmath.LegacyDec `protobuf:"bytes,10,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"validator_fee_ratio" yaml:"validator_fee_ratio"`
 	ExpirationBlocks  uint64                                 `protobuf:"varint,11,opt,name=expiration_blocks,json=expirationBlocks,proto3" json:"expiration_blocks,omitempty" yaml:"expiration_blocks"`
 }
 
@@ -224,7 +224,7 @@ var xxx_messageInfo_AggregateExchangeRateVote proto.InternalMessageInfo
 // ExchangeRateTuple - struct to store interpreted exchange rates data to store
 type ExchangeRateTuple struct {
 	Pair         github_com_NibiruChain_nibiru_v2_x_common_asset.Pair `protobuf:"bytes,1,opt,name=pair,proto3,customtype=github.com/NibiruChain/nibiru/v2/x/common/asset.Pair" json:"pair" yaml:"pair"`
-	ExchangeRate github_com_cosmos_cosmos_sdk_types.Dec               `protobuf:"bytes,2,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate" yaml:"exchange_rate"`
+	ExchangeRate sdkmath.LegacyDec               `protobuf:"bytes,2,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate" yaml:"exchange_rate"`
 }
 
 func (m *ExchangeRateTuple) Reset()         { *m = ExchangeRateTuple{} }
@@ -261,7 +261,7 @@ func (m *ExchangeRateTuple) XXX_DiscardUnknown() {
 var xxx_messageInfo_ExchangeRateTuple proto.InternalMessageInfo
 
 type DatedPrice struct {
-	ExchangeRate github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,1,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate" yaml:"exchange_rate"`
+	ExchangeRate sdkmath.LegacyDec `protobuf:"bytes,1,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate" yaml:"exchange_rate"`
 	CreatedBlock uint64                                 `protobuf:"varint,2,opt,name=created_block,json=createdBlock,proto3" json:"created_block,omitempty" yaml:"created_block"`
 }
 

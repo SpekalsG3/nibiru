@@ -7,7 +7,7 @@ import (
 	fmt "fmt"
 	github_com_NibiruChain_nibiru_v2_x_common_asset "github.com/NibiruChain/nibiru/v2/x/common/asset"
 	_ "github.com/cosmos/cosmos-sdk/types"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
@@ -30,7 +30,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // a snapshot of the prices at a given point in time
 type PriceSnapshot struct {
 	Pair  github_com_NibiruChain_nibiru_v2_x_common_asset.Pair `protobuf:"bytes,1,opt,name=pair,proto3,customtype=github.com/NibiruChain/nibiru/v2/x/common/asset.Pair" json:"pair" yaml:"pair"`
-	Price github_com_cosmos_cosmos_sdk_types.Dec               `protobuf:"bytes,2,opt,name=price,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"price"`
+	Price sdkmath.LegacyDec               `protobuf:"bytes,2,opt,name=price,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"price"`
 	// milliseconds since unix epoch
 	TimestampMs int64 `protobuf:"varint,3,opt,name=timestamp_ms,json=timestampMs,proto3" json:"timestamp_ms,omitempty"`
 }

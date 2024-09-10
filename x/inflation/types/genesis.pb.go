@@ -5,7 +5,7 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
@@ -96,7 +96,7 @@ type Params struct {
 	InflationEnabled bool `protobuf:"varint,1,opt,name=inflation_enabled,json=inflationEnabled,proto3" json:"inflation_enabled,omitempty"`
 	// polynomial_factors takes in the variables to calculate polynomial
 	// inflation
-	PolynomialFactors []github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,2,rep,name=polynomial_factors,json=polynomialFactors,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"polynomial_factors"`
+	PolynomialFactors []sdkmath.LegacyDec `protobuf:"bytes,2,rep,name=polynomial_factors,json=polynomialFactors,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"polynomial_factors"`
 	// inflation_distribution of the minted denom
 	InflationDistribution InflationDistribution `protobuf:"bytes,3,opt,name=inflation_distribution,json=inflationDistribution,proto3" json:"inflation_distribution"`
 	// epochs_per_period is the number of epochs that must pass before a new
@@ -619,7 +619,7 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.PolynomialFactors = append(m.PolynomialFactors, v)
 			if err := m.PolynomialFactors[len(m.PolynomialFactors)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err

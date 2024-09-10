@@ -8,7 +8,7 @@ import (
 	fmt "fmt"
 	github_com_NibiruChain_nibiru_v2_x_common_asset "github.com/NibiruChain/nibiru/v2/x/common/asset"
 	_ "github.com/cosmos/cosmos-sdk/types"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	grpc1 "github.com/cosmos/gogoproto/grpc"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -76,7 +76,7 @@ var xxx_messageInfo_QueryExchangeRateRequest proto.InternalMessageInfo
 // Query/ExchangeRate RPC method.
 type QueryExchangeRateResponse struct {
 	// exchange_rate defines the exchange rate of assets voted by validators
-	ExchangeRate github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,1,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate"`
+	ExchangeRate sdkmath.LegacyDec `protobuf:"bytes,1,opt,name=exchange_rate,json=exchangeRate,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"exchange_rate"`
 }
 
 func (m *QueryExchangeRateResponse) Reset()         { *m = QueryExchangeRateResponse{} }

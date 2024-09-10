@@ -5,7 +5,7 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
@@ -30,13 +30,13 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type InflationDistribution struct {
 	// staking_rewards defines the proportion of the minted_denom that is
 	// to be allocated as staking rewards
-	StakingRewards github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,1,opt,name=staking_rewards,json=stakingRewards,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"staking_rewards"`
+	StakingRewards sdkmath.LegacyDec `protobuf:"bytes,1,opt,name=staking_rewards,json=stakingRewards,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"staking_rewards"`
 	// community_pool defines the proportion of the minted_denom that is to
 	// be allocated to the community pool
-	CommunityPool github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,2,opt,name=community_pool,json=communityPool,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"community_pool"`
+	CommunityPool sdkmath.LegacyDec `protobuf:"bytes,2,opt,name=community_pool,json=communityPool,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"community_pool"`
 	// strategic_reserves defines the proportion of the minted_denom that
 	// is to be allocated to the strategic reserves module address
-	StrategicReserves github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,3,opt,name=strategic_reserves,json=strategicReserves,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"strategic_reserves"`
+	StrategicReserves sdkmath.LegacyDec `protobuf:"bytes,3,opt,name=strategic_reserves,json=strategicReserves,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"strategic_reserves"`
 }
 
 func (m *InflationDistribution) Reset()         { *m = InflationDistribution{} }

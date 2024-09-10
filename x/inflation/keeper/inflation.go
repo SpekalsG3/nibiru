@@ -128,7 +128,7 @@ func (k Keeper) AllocatePolynomialInflation(
 func (k Keeper) GetProportions(
 	_ sdk.Context,
 	coin sdk.Coin,
-	proportion sdk.Dec,
+	proportion math.LegacyDec,
 ) sdk.Coin {
 	return sdk.Coin{
 		Denom:  coin.Denom,

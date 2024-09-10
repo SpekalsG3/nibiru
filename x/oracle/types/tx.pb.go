@@ -6,7 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	grpc1 "github.com/cosmos/gogoproto/grpc"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -281,21 +281,21 @@ var xxx_messageInfo_MsgDelegateFeedConsentResponse proto.InternalMessageInfo
 // [SUDO] Only callable by sudoers.
 type MsgEditOracleParams struct {
 	Sender     string                                  `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
-	VotePeriod *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,2,opt,name=vote_period,json=votePeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"vote_period,omitempty"`
+	VotePeriod *sdkmath.Int  `protobuf:"bytes,2,opt,name=vote_period,json=votePeriod,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"vote_period,omitempty"`
 	// vote_threshold: [cosmossdk.io/math.LegacyDec] TODO:
-	VoteThreshold *github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,3,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"vote_threshold,omitempty"`
+	VoteThreshold *sdkmath.LegacyDec `protobuf:"bytes,3,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"vote_threshold,omitempty"`
 	// reward_band: [cosmossdk.io/math.LegacyDec] TODO:
-	RewardBand *github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,4,opt,name=reward_band,json=rewardBand,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"reward_band,omitempty"`
+	RewardBand *sdkmath.LegacyDec `protobuf:"bytes,4,opt,name=reward_band,json=rewardBand,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"reward_band,omitempty"`
 	Whitelist  []string                                `protobuf:"bytes,5,rep,name=whitelist,proto3" json:"whitelist,omitempty"`
 	// slash_fraction: [cosmossdk.io/math.LegacyDec] TODO:
-	SlashFraction *github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,6,opt,name=slash_fraction,json=slashFraction,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"slash_fraction,omitempty"`
-	SlashWindow   *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,7,opt,name=slash_window,json=slashWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"slash_window,omitempty"`
+	SlashFraction *sdkmath.LegacyDec `protobuf:"bytes,6,opt,name=slash_fraction,json=slashFraction,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"slash_fraction,omitempty"`
+	SlashWindow   *sdkmath.Int  `protobuf:"bytes,7,opt,name=slash_window,json=slashWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"slash_window,omitempty"`
 	// min_valid_per_window: [cosmossdk.io/math.LegacyDec] TODO:
-	MinValidPerWindow  *github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,8,opt,name=min_valid_per_window,json=minValidPerWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"min_valid_per_window,omitempty"`
-	TwapLookbackWindow *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,9,opt,name=twap_lookback_window,json=twapLookbackWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"twap_lookback_window,omitempty"`
-	MinVoters          *github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,10,opt,name=min_voters,json=minVoters,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"min_voters,omitempty"`
+	MinValidPerWindow  *sdkmath.LegacyDec `protobuf:"bytes,8,opt,name=min_valid_per_window,json=minValidPerWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"min_valid_per_window,omitempty"`
+	TwapLookbackWindow *sdkmath.Int  `protobuf:"bytes,9,opt,name=twap_lookback_window,json=twapLookbackWindow,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"twap_lookback_window,omitempty"`
+	MinVoters          *sdkmath.Int  `protobuf:"bytes,10,opt,name=min_voters,json=minVoters,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"min_voters,omitempty"`
 	// VoteThreshold: [cosmossdk.io/math.LegacyDec] TODO:
-	ValidatorFeeRatio *github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,11,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"validator_fee_ratio,omitempty"`
+	ValidatorFeeRatio *sdkmath.LegacyDec `protobuf:"bytes,11,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"validator_fee_ratio,omitempty"`
 }
 
 func (m *MsgEditOracleParams) Reset()         { *m = MsgEditOracleParams{} }
@@ -1905,7 +1905,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.VotePeriod = &v
 			if err := m.VotePeriod.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1941,7 +1941,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.VoteThreshold = &v
 			if err := m.VoteThreshold.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -1977,7 +1977,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.RewardBand = &v
 			if err := m.RewardBand.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2045,7 +2045,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.SlashFraction = &v
 			if err := m.SlashFraction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2081,7 +2081,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.SlashWindow = &v
 			if err := m.SlashWindow.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2117,7 +2117,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.MinValidPerWindow = &v
 			if err := m.MinValidPerWindow.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2153,7 +2153,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.TwapLookbackWindow = &v
 			if err := m.TwapLookbackWindow.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2189,7 +2189,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Int
+			var v sdkmath.Int 
 			m.MinVoters = &v
 			if err := m.MinVoters.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -2225,7 +2225,7 @@ func (m *MsgEditOracleParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var v github_com_cosmos_cosmos_sdk_types.Dec
+			var v sdkmath.LegacyDec
 			m.ValidatorFeeRatio = &v
 			if err := m.ValidatorFeeRatio.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err

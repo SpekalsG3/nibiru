@@ -8,7 +8,6 @@ import (
 	"math/rand"
 
 	"cosmossdk.io/math"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
 	"github.com/NibiruChain/nibiru/v2/x/devgas/v1/types"
@@ -23,7 +22,7 @@ func GenDeveloperFeeShare(r *rand.Rand) math.LegacyDec {
 }
 
 func RandomizedGenState(simState *module.SimulationState) {
-	var developerFeeShare sdk.Dec
+	var developerFeeShare math.LegacyDec
 	simState.AppParams.GetOrGenerate(
 		simState.Cdc, DeveloperFeeShare, &developerFeeShare, simState.Rand,
 		func(r *rand.Rand) { developerFeeShare = GenDeveloperFeeShare(r) },

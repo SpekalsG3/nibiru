@@ -23,7 +23,7 @@ type ExchangeRateVote struct {
 }
 
 // NewExchangeRateVote returns a new ExchangeRateVote instance
-func NewExchangeRateVote(rate sdk.Dec, pair asset.Pair, voter sdk.ValAddress, power int64) ExchangeRateVote {
+func NewExchangeRateVote(rate math.LegacyDec, pair asset.Pair, voter sdk.ValAddress, power int64) ExchangeRateVote {
 	return ExchangeRateVote{
 		ExchangeRate: rate,
 		Pair:         pair,
@@ -37,7 +37,7 @@ type ExchangeRateVotes []ExchangeRateVote
 
 // ToMap return organized exchange rate map by validator
 func (pb ExchangeRateVotes) ToMap() map[string]math.LegacyDec {
-	validatorExchangeRateMap := make(map[string]sdk.Dec)
+	validatorExchangeRateMap := make(map[string]math.LegacyDec)
 	for _, vote := range pb {
 		if vote.ExchangeRate.IsPositive() {
 			validatorExchangeRateMap[string(vote.Voter)] = vote.ExchangeRate
@@ -48,7 +48,7 @@ func (pb ExchangeRateVotes) ToMap() map[string]math.LegacyDec {
 }
 
 // ToCrossRate return cross_rate(base/exchange_rate) votes
-func (pb ExchangeRateVotes) ToCrossRate(bases map[string]sdk.Dec) (cb ExchangeRateVotes) {
+func (pb ExchangeRateVotes) ToCrossRate(bases map[string]math.LegacyDec) (cb ExchangeRateVotes) {
 	for i := range pb {
 		vote := pb[i]
 
@@ -124,7 +124,7 @@ func (pb ExchangeRateVotes) WeightedMedianWithAssertion() math.LegacyDec {
 }
 
 // StandardDeviation returns the standard deviation by the power of the ExchangeRateVote.
-func (pb ExchangeRateVotes) StandardDeviation(median sdk.Dec) (standardDeviation sdk.Dec) {
+func (pb ExchangeRateVotes) StandardDeviation(median math.LegacyDec) (standardDeviation math.LegacyDec) {
 	if len(pb) == 0 {
 		return math.LegacyZeroDec()
 	}
