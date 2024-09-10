@@ -40,7 +40,7 @@ var (
 //   - NOTE, MustSqrtDec panics if it is called on a negative number, similar to the
 //     sdk.NewCoin and SqrtBigInt functions. A panic safe version of MustSqrtDec
 //     is available in the SqrtDec method.
-func MustSqrtDec(dec sdk.Dec) sdk.Dec {
+func MustSqrtDec(dec sdk.Dec) math.LegacyDec {
 	sqrtBigInt := MustSqrtBigInt(dec.BigInt())
 	precision := math.LegacyNewDecFromBigInt(PRECISION_MULT)
 	return math.LegacyNewDecFromBigInt(sqrtBigInt).Quo(precision)
@@ -180,7 +180,7 @@ func BankersRound(quo, rem, halfPrecision *big.Int) *big.Int {
 
 // Clamp return the value if it is within the clampValue, otherwise return the clampValue.
 // e.g. Clamp(1.5, 1) = 1, Clamp(-1.5, 1) = -1, Clamp(0.5, 1) = 0.5
-func Clamp(value sdk.Dec, clampValue sdk.Dec) sdk.Dec {
+func Clamp(value sdk.Dec, clampValue sdk.Dec) math.LegacyDec {
 	if value.GT(clampValue) {
 		return clampValue
 	} else if value.LT(clampValue.Neg()) {

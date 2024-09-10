@@ -17,7 +17,7 @@ import (
 // ExchangeRateVote is a convenience wrapper to reduce redundant lookup cost
 type ExchangeRateVote struct {
 	Pair         asset.Pair
-	ExchangeRate sdk.Dec // aka price
+	ExchangeRate math.LegacyDec // aka price
 	Voter        sdk.ValAddress
 	Power        int64 // how much tendermint consensus power this vote should have
 }
@@ -36,7 +36,7 @@ func NewExchangeRateVote(rate sdk.Dec, pair asset.Pair, voter sdk.ValAddress, po
 type ExchangeRateVotes []ExchangeRateVote
 
 // ToMap return organized exchange rate map by validator
-func (pb ExchangeRateVotes) ToMap() map[string]sdk.Dec {
+func (pb ExchangeRateVotes) ToMap() map[string]math.LegacyDec {
 	validatorExchangeRateMap := make(map[string]sdk.Dec)
 	for _, vote := range pb {
 		if vote.ExchangeRate.IsPositive() {
@@ -89,7 +89,7 @@ func (v ExchangeRateVotes) Power() int64 {
 
 // WeightedMedian returns the median weighted by the power of the ExchangeRateVote.
 // CONTRACT: votes must be sorted
-func (votes ExchangeRateVotes) WeightedMedian() sdk.Dec {
+func (votes ExchangeRateVotes) WeightedMedian() math.LegacyDec {
 	totalPower := votes.Power()
 	if votes.Len() > 0 {
 		pivot := int64(0)
@@ -106,7 +106,7 @@ func (votes ExchangeRateVotes) WeightedMedian() sdk.Dec {
 }
 
 // WeightedMedianWithAssertion returns the median weighted by the power of the ExchangeRateVote.
-func (pb ExchangeRateVotes) WeightedMedianWithAssertion() sdk.Dec {
+func (pb ExchangeRateVotes) WeightedMedianWithAssertion() math.LegacyDec {
 	sort.Sort(pb)
 	totalPower := pb.Power()
 	if pb.Len() > 0 {

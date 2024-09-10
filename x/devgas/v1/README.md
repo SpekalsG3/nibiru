@@ -421,11 +421,11 @@ The `x/devgas` module emits the following events:
 
 The fee Split module contains the following parameters:
 
-| Key                        | Type        | Default Value    |
-| :------------------------- | :---------- | :--------------- |
-| `EnableFeeShare`           | bool        | `true`           |
-| `DeveloperShares`          | sdk.Dec     | `50%`            |
-| `AllowedDenoms`            | []string{}  | `[]string(nil)`  |
+| Key                        | Type           | Default Value    |
+| :------------------------- | :------------- | :--------------- |
+| `EnableFeeShare`           | bool           | `true`           |
+| `DeveloperShares`          | math.LegacyDec | `50%`            |
+| `AllowedDenoms`            | []string{}     | `[]string(nil)`  |
 
 ## Enable FeeShare Module
 

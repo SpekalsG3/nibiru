@@ -163,7 +163,7 @@ func (s *TestSuite) waitPriceUpdateBlock() {
 	s.waitVoteRevealBlock()
 }
 
-func (s *TestSuite) currentPrices() map[asset.Pair]sdk.Dec {
+func (s *TestSuite) currentPrices() map[asset.Pair]math.LegacyDec {
 	rawRates, err := types.NewQueryClient(s.network.Validators[0].ClientCtx).ExchangeRates(context.Background(), &types.QueryExchangeRatesRequest{})
 	require.NoError(s.T(), err)
 

@@ -32,12 +32,12 @@ func GenVotePeriod(r *rand.Rand) uint64 {
 }
 
 // GenVoteThreshold randomized VoteThreshold
-func GenVoteThreshold(r *rand.Rand) sdk.Dec {
+func GenVoteThreshold(r *rand.Rand) math.LegacyDec {
 	return math.LegacyNewDecWithPrec(333, 3).Add(math.LegacyNewDecWithPrec(int64(r.Intn(333)), 3))
 }
 
 // GenRewardBand randomized RewardBand
-func GenRewardBand(r *rand.Rand) sdk.Dec {
+func GenRewardBand(r *rand.Rand) math.LegacyDec {
 	return math.LegacyZeroDec().Add(math.LegacyNewDecWithPrec(int64(r.Intn(100)), 3))
 }
 
@@ -47,7 +47,7 @@ func GenRewardDistributionWindow(r *rand.Rand) uint64 {
 }
 
 // GenSlashFraction randomized SlashFraction
-func GenSlashFraction(r *rand.Rand) sdk.Dec {
+func GenSlashFraction(r *rand.Rand) math.LegacyDec {
 	return math.LegacyZeroDec().Add(math.LegacyNewDecWithPrec(int64(r.Intn(100)), 3))
 }
 
@@ -57,7 +57,7 @@ func GenSlashWindow(r *rand.Rand) uint64 {
 }
 
 // GenMinValidPerWindow randomized MinValidPerWindow
-func GenMinValidPerWindow(r *rand.Rand) sdk.Dec {
+func GenMinValidPerWindow(r *rand.Rand) math.LegacyDec {
 	return math.LegacyZeroDec().Add(math.LegacyNewDecWithPrec(int64(r.Intn(500)), 3))
 }
 

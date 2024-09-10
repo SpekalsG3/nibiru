@@ -161,8 +161,8 @@ type AggregateExchangeRatePrevote struct {
 
 ```go
 type ExchangeRateTuple struct {
- Pair        string  `json:"pair"`
- ExchangeRate sdk.Dec `json:"exchange_rate"`
+ Pair         string         `json:"pair"`
+ ExchangeRate math.LegacyDec `json:"exchange_rate"`
 }
 
 type ExchangeRateTuples []ExchangeRateTuple

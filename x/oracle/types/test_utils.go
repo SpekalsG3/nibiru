@@ -138,14 +138,14 @@ func (v MockValidator) GetTokens() sdk.Int {
 func (v MockValidator) GetBondedTokens() sdk.Int {
 	return sdk.TokensFromConsensusPower(v.power, sdk.DefaultPowerReduction)
 }
-func (v MockValidator) GetConsensusPower(powerReduction sdk.Int) int64 { return v.power }
-func (v *MockValidator) SetConsensusPower(power int64)                 { v.power = power }
-func (v MockValidator) GetCommission() sdk.Dec                         { return sdkmath.LegacyZeroDec() }
-func (v MockValidator) GetMinSelfDelegation() sdk.Int                  { return sdkmath.OneInt() }
-func (v MockValidator) GetDelegatorShares() sdk.Dec                    { return sdkmath.LegacyNewDec(v.power) }
-func (v MockValidator) TokensFromShares(sdk.Dec) sdk.Dec               { return sdkmath.LegacyZeroDec() }
-func (v MockValidator) TokensFromSharesTruncated(sdk.Dec) sdk.Dec      { return sdkmath.LegacyZeroDec() }
-func (v MockValidator) TokensFromSharesRoundUp(sdk.Dec) sdk.Dec        { return sdkmath.LegacyZeroDec() }
+func (v MockValidator) GetConsensusPower(powerReduction sdk.Int) int64      { return v.power }
+func (v *MockValidator) SetConsensusPower(power int64)                      { v.power = power }
+func (v MockValidator) GetCommission() sdkmath.LegacyDec                    { return sdkmath.LegacyZeroDec() }
+func (v MockValidator) GetMinSelfDelegation() sdk.Int                       { return sdkmath.OneInt() }
+func (v MockValidator) GetDelegatorShares() sdkmath.LegacyDec               { return sdkmath.LegacyNewDec(v.power) }
+func (v MockValidator) TokensFromShares(sdk.Dec) sdkmath.LegacyDec          { return sdkmath.LegacyZeroDec() }
+func (v MockValidator) TokensFromSharesTruncated(sdk.Dec) sdkmath.LegacyDec { return sdkmath.LegacyZeroDec() }
+func (v MockValidator) TokensFromSharesRoundUp(sdk.Dec) sdkmath.LegacyDec   { return sdkmath.LegacyZeroDec() }
 func (v MockValidator) SharesFromTokens(amt sdk.Int) (sdk.Dec, error) {
 	return sdkmath.LegacyZeroDec(), nil
 }

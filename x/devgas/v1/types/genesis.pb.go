@@ -5,7 +5,7 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
+	sdkmath "cosmossdk.io/math"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
 	io "io"
@@ -85,7 +85,7 @@ type ModuleParams struct {
 	EnableFeeShare bool `protobuf:"varint,1,opt,name=enable_fee_share,json=enableFeeShare,proto3" json:"enable_fee_share,omitempty"`
 	// developer_shares defines the proportion of the transaction fees to be
 	// distributed to the registered contract owner
-	DeveloperShares github_com_cosmos_cosmos_sdk_types.Dec `protobuf:"bytes,2,opt,name=developer_shares,json=developerShares,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"developer_shares"`
+	DeveloperShares sdkmath.LegacyDec `protobuf:"bytes,2,opt,name=developer_shares,json=developerShares,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Dec" json:"developer_shares"`
 	// allowed_denoms defines the list of denoms that are allowed to be paid to
 	// the contract withdraw addresses. If said denom is not in the list, the fees
 	// will ONLY be sent to the community pool.

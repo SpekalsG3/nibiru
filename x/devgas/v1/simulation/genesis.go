@@ -18,7 +18,7 @@ const (
 	DeveloperFeeShare = "developer_fee_share"
 )
 
-func GenDeveloperFeeShare(r *rand.Rand) sdk.Dec {
+func GenDeveloperFeeShare(r *rand.Rand) math.LegacyDec {
 	return math.LegacyNewDecWithPrec(int64(r.Intn(100)), 2)
 }
 

@@ -150,7 +150,7 @@ func Tally(
 	votes types.ExchangeRateVotes,
 	rewardBand sdk.Dec,
 	validatorPerformances types.ValidatorPerformances,
-) sdk.Dec {
+) math.LegacyDec {
 	weightedMedian := votes.WeightedMedianWithAssertion()
 	standardDeviation := votes.StandardDeviation(weightedMedian)
 	rewardSpread := weightedMedian.Mul(rewardBand.QuoInt64(2))

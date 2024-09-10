@@ -34,7 +34,7 @@ func (v *variableEWMA) Add(dec sdk.Dec) {
 	v.value = v.value.Mul(math.LegacyOneDec().Sub(v.decay)).Add(dec.Mul(v.decay))
 }
 
-func (v *variableEWMA) Value() sdk.Dec {
+func (v *variableEWMA) Value() math.LegacyDec {
 	return v.value
 }
 
