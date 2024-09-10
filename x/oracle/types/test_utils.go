@@ -7,6 +7,7 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
+	storetypes "cosmossdk.io/store/types"
 
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -68,7 +69,7 @@ func (sk DummyStakingKeeper) Validators() []MockValidator {
 // Validator nolint
 func (sk DummyStakingKeeper) Validator(ctx sdk.Context, address sdk.ValAddress) stakingtypes.ValidatorI {
 	for _, validator := range sk.validators {
-		if validator.GetOperator().Equals(address) {
+		if validator.GetOperator() == address.String() {
 			return validator
 		}
 	}
@@ -87,8 +88,8 @@ func (DummyStakingKeeper) Slash(sdk.Context, sdk.ConsAddress, int64, int64, sdkm
 }
 
 // ValidatorsPowerStoreIterator nolint
-func (DummyStakingKeeper) ValidatorsPowerStoreIterator(ctx sdk.Context) sdk.Iterator {
-	return sdk.KVStoreReversePrefixIterator(nil, nil)
+func (DummyStakingKeeper) ValidatorsPowerStoreIterator(ctx sdk.Context) storetypes.Iterator {
+	return storetypes.KVStoreReversePrefixIterator(nil, nil)
 }
 
 // Jail nolint
@@ -125,12 +126,12 @@ func (MockValidator) GetStatus() stakingtypes.BondStatus      { return stakingty
 func (MockValidator) IsBonded() bool                          { return true }
 func (MockValidator) IsUnbonded() bool                        { return false }
 func (MockValidator) IsUnbonding() bool                       { return false }
-func (v MockValidator) GetOperator() sdk.ValAddress           { return v.valOperAddr }
+func (v MockValidator) GetOperator() string                   { return v.valOperAddr.String() }
 func (MockValidator) ConsPubKey() (cryptotypes.PubKey, error) { return nil, nil }
 func (MockValidator) TmConsPublicKey() (tmprotocrypto.PublicKey, error) {
 	return tmprotocrypto.PublicKey{}, nil
 }
-func (MockValidator) GetConsAddr() (sdk.ConsAddress, error) { return nil, nil }
+func (MockValidator) GetConsAddr() ([]byte, error) { return nil, nil }
 func (v MockValidator) GetTokens() sdkmath.Int {
 	return sdk.TokensFromConsensusPower(v.power, sdk.DefaultPowerReduction)
 }
