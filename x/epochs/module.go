@@ -164,7 +164,7 @@ func (AppModule) ProposalContents(simState module.SimulationState) []simtypes.We
 }
 
 // RegisterStoreDecoder registers a decoder for supply module's types.
-func (am AppModule) RegisterStoreDecoder(sdr sdk.StoreDecoderRegistry) {
+func (am AppModule) RegisterStoreDecoder(sdr simtypes.StoreDecoderRegistry) {
 }
 
 // WeightedOperations returns the all the gov module operations with their respective weights.
