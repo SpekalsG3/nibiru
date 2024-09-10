@@ -148,7 +148,7 @@ func (k Keeper) removeInvalidVotes(
 // made by the validators.
 func Tally(
 	votes types.ExchangeRateVotes,
-	rewardBand sdk.Dec,
+	rewardBand math.LegacyDec,
 	validatorPerformances types.ValidatorPerformances,
 ) math.LegacyDec {
 	weightedMedian := votes.WeightedMedianWithAssertion()

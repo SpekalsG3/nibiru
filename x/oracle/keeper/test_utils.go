@@ -283,7 +283,7 @@ func CreateTestFixture(t *testing.T) TestFixture {
 
 // NewTestMsgCreateValidator test msg creator
 func NewTestMsgCreateValidator(
-	address sdk.ValAddress, pubKey cryptotypes.PubKey, amt sdk.Int,
+	address sdk.ValAddress, pubKey cryptotypes.PubKey, amt math.Int,
 ) *stakingtypes.MsgCreateValidator {
 	commission := stakingtypes.NewCommissionRates(math.LegacyZeroDec(), math.LegacyZeroDec(), math.LegacyZeroDec())
 	msg, _ := stakingtypes.NewMsgCreateValidator(
