@@ -996,29 +996,29 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_ExchangeRate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "exchange_rate"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ExchangeRate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "exchange_rate"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_ExchangeRateTwap_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "exchange_rate_twap"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ExchangeRateTwap_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "exchange_rate_twap"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_ExchangeRates_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "exchange_rates"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ExchangeRates_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "exchange_rates"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Actives_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "actives"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Actives_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "actives"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_VoteTargets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "vote_targets"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_VoteTargets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "pairs", "vote_targets"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_FeederDelegation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "feeder"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_FeederDelegation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "feeder"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_MissCounter_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "miss"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_MissCounter_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "miss"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_AggregatePrevote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "aggregate_prevote"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AggregatePrevote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "validators", "validator_addr", "aggregate_prevote"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_AggregatePrevotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "validators", "aggregate_prevotes"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AggregatePrevotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "validators", "aggregate_prevotes"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_AggregateVote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "valdiators", "validator_addr", "aggregate_vote"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AggregateVote_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 2, 5}, []string{"nibiru", "oracle", "v1beta1", "valdiators", "validator_addr", "aggregate_vote"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_AggregateVotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "validators", "aggregate_votes"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AggregateVotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "oracle", "v1beta1", "validators", "aggregate_votes"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "oracle", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

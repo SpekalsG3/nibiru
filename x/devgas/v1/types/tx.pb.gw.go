@@ -321,11 +321,11 @@ func RegisterMsgHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 }
 
 var (
-	pattern_Msg_RegisterFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "register_FeeShare"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_RegisterFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "register_FeeShare"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Msg_UpdateFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "update_FeeShare"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_UpdateFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "update_FeeShare"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Msg_CancelFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "cancel_FeeShare"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_CancelFeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"nibiru", "devgas", "v1", "tx", "cancel_FeeShare"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

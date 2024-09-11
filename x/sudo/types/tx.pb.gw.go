@@ -242,9 +242,9 @@ func RegisterMsgHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 }
 
 var (
-	pattern_Msg_EditSudoers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "sudo", "edit_sudoers"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_EditSudoers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "sudo", "edit_sudoers"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Msg_ChangeRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "sudo", "change_root"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_ChangeRoot_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "sudo", "change_root"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

@@ -242,9 +242,9 @@ func RegisterMsgHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 }
 
 var (
-	pattern_Msg_ToggleInflation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "inflation", "v1", "toggle"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_ToggleInflation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "inflation", "v1", "toggle"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Msg_EditInflationParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "inflation", "edit-inflation-params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Msg_EditInflationParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nibiru", "inflation", "edit-inflation-params"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

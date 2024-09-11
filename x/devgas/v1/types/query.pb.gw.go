@@ -436,13 +436,13 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_FeeShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "deployer"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_FeeShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "deployer"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_FeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "contract_address"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_FeeShare_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "contract_address"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "devgas", "v1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nibiru", "devgas", "v1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_FeeSharesByWithdrawer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "withdrawer_address"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_FeeSharesByWithdrawer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"nibiru", "devgas", "v1", "fee_shares", "withdrawer_address"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
