@@ -7,6 +7,8 @@ import (
 	"math/big"
 
 	"github.com/cosmos/gogoproto/proto"
+	protov2 "google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/protoadapt"
 
 	sdkmath "cosmossdk.io/math"
 
@@ -16,6 +18,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
+	txsigning "github.com/cosmos/cosmos-sdk/types/tx/signing"
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	"github.com/cosmos/cosmos-sdk/x/auth/signing"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
@@ -199,6 +202,11 @@ func (msg *MsgEthereumTx) GetMsgs() []sdk.Msg {
 	return []sdk.Msg{msg}
 }
 
+// since v0.50.1: sdk.Tx now requires a new method GetMsgsV2()
+func (msg *MsgEthereumTx) GetMsgsV2() ([]protov2.Message, error) {
+	return []protov2.Message{protoadapt.MessageV2Of(msg)}, nil
+}
+
 // GetSigners returns the expected signers for an Ethereum transaction message.
 // For such a message, there should exist only a single 'signer'.
 //
@@ -243,7 +251,7 @@ func (msg *MsgEthereumTx) Sign(ethSigner gethcore.Signer, keyringSigner keyring.
 	tx := msg.AsTransaction()
 	txHash := ethSigner.Hash(tx)
 
-	sig, _, err := keyringSigner.SignByAddress(from, txHash.Bytes())
+	sig, _, err := keyringSigner.SignByAddress(from, txHash.Bytes(), txsigning.SignMode_SIGN_MODE_UNSPECIFIED)
 	if err != nil {
 		return err
 	}

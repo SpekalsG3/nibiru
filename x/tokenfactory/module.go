@@ -14,6 +14,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"cosmossdk.io/core/appmodule"
+
 	abci "github.com/cometbft/cometbft/abci/types"
 	sdkclient "github.com/cosmos/cosmos-sdk/client"
 	sdkcodec "github.com/cosmos/cosmos-sdk/codec"
@@ -36,8 +38,8 @@ var (
 	_ module.AppModuleBasic      = AppModuleBasic{}
 	_ module.AppModule           = AppModule{}
 	_ module.AppModuleSimulation = AppModule{}
-	_ module.BeginBlockAppModule = AppModule{}
-	_ module.EndBlockAppModule   = AppModule{}
+	_ appmodule.HasBeginBlocker  = AppModule{}
+	_ appmodule.HasEndBlocker    = AppModule{}
 )
 
 // ConsensusVersion defines the current module consensus version.
@@ -158,8 +160,8 @@ func (am AppModule) BeginBlock(_ context.Context) error {
 
 // EndBlock executes all ABCI EndBlock logic respective to the fee-share module. It
 // returns no validator updates.
-func (am AppModule) EndBlock(_ context.Context) ([]abci.ValidatorUpdate, error) {
-	return []abci.ValidatorUpdate{}, nil
+func (am AppModule) EndBlock(_ context.Context) error {
+	return nil
 }
 
 // InitGenesis performs the fees module's genesis initialization. It returns
@@ -184,7 +186,7 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 }
 
 // RegisterStoreDecoder implements module.AppModuleSimulation.
-func (AppModule) RegisterStoreDecoder(sdk.StoreDecoderRegistry) {
+func (AppModule) RegisterStoreDecoder(simtypes.StoreDecoderRegistry) {
 }
 
 // WeightedOperations implements module.AppModuleSimulation.

@@ -298,7 +298,7 @@ func NewTestMsgCreateValidator(
 ) *stakingtypes.MsgCreateValidator {
 	commission := stakingtypes.NewCommissionRates(math.LegacyZeroDec(), math.LegacyZeroDec(), math.LegacyZeroDec())
 	msg, _ := stakingtypes.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(denoms.NIBI, amt),
+		address.String(), pubKey, sdk.NewCoin(denoms.NIBI, amt),
 		stakingtypes.Description{}, commission, math.OneInt(),
 	)
 

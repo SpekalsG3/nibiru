@@ -12,9 +12,13 @@ import (
 )
 
 // UpdateExchangeRates updates the ExchangeRates, this is supposed to be executed on EndBlock.
-func (k Keeper) UpdateExchangeRates(ctx sdk.Context) types.ValidatorPerformances {
+func (k Keeper) UpdateExchangeRates(ctx sdk.Context) (types.ValidatorPerformances, error) {
 	k.Logger(ctx).Info("processing validator price votes")
-	validatorPerformances := k.newValidatorPerformances(ctx)
+	validatorPerformances, err := k.newValidatorPerformances(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	whitelistedPairs := set.New[asset.Pair](k.GetWhitelistedPairs(ctx)...)
 
 	pairVotes := k.getPairVotes(ctx, validatorPerformances, whitelistedPairs)
@@ -42,7 +46,7 @@ func (k Keeper) UpdateExchangeRates(ctx sdk.Context) types.ValidatorPerformances
 		})
 	}
 
-	return validatorPerformances
+	return validatorPerformances, nil
 }
 
 // incrementMissCounters it parses all validators performance and increases the
@@ -127,29 +131,44 @@ func (k Keeper) clearExchangeRates(ctx sdk.Context, pairVotes map[asset.Pair]typ
 
 // newValidatorPerformances creates a new map of validators and their performance, excluding validators that are
 // not bonded.
-func (k Keeper) newValidatorPerformances(ctx sdk.Context) types.ValidatorPerformances {
+func (k Keeper) newValidatorPerformances(ctx sdk.Context) (types.ValidatorPerformances, error) {
 	validatorPerformances := make(map[string]types.ValidatorPerformance)
 
-	maxValidators := k.StakingKeeper.MaxValidators(ctx)
+	maxValidators, err := k.StakingKeeper.MaxValidators(ctx)
+	if err != nil {
+		return nil, err
+	}
 	powerReduction := k.StakingKeeper.PowerReduction(ctx)
 
-	iterator := k.StakingKeeper.ValidatorsPowerStoreIterator(ctx)
+	iterator, err := k.StakingKeeper.ValidatorsPowerStoreIterator(ctx)
+	if err != nil {
+		return nil, err
+	}
 	defer iterator.Close()
 
 	for i := 0; iterator.Valid() && i < int(maxValidators); iterator.Next() {
-		validator := k.StakingKeeper.Validator(ctx, iterator.Value())
+		validator, err := k.StakingKeeper.Validator(ctx, iterator.Value())
+		if err != nil {
+			return nil, err
+		}
 
 		// exclude not bonded
 		if !validator.IsBonded() {
 			continue
 		}
 
-		valAddr := validator.GetOperator()
-		validatorPerformances[valAddr.String()] = types.NewValidatorPerformance(
-			validator.GetConsensusPower(powerReduction), valAddr,
+		valAddrStr := validator.GetOperator()
+		valAddr, err := sdk.ValAddressFromBech32(valAddrStr)
+		if err != nil {
+			return nil, err
+		}
+
+		validatorPerformances[valAddrStr] = types.NewValidatorPerformance(
+			validator.GetConsensusPower(powerReduction),
+			valAddr,
 		)
 		i++
 	}
 
-	return validatorPerformances
+	return validatorPerformances, nil
 }

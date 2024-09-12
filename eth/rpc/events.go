@@ -78,7 +78,7 @@ type ParsedTxs struct {
 // ParseTxResult: parses eth tx info from the ABCI events of Eth tx msgs
 // ([evm.MsgEthereumTx]). It supports each [EventFormat].
 func ParseTxResult(
-	result *abci.ResponseDeliverTx, tx sdk.Tx,
+	result *abci.ExecTxResult, tx sdk.Tx,
 ) (*ParsedTxs, error) {
 	format := eventFormatUnknown
 	// the index of current ethereum_tx event in format 1 or the second part of format 2

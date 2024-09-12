@@ -43,8 +43,8 @@ func (k Keeper) rewardWinners(
 
 	var distributedRewards sdk.Coins
 	for _, validatorPerformance := range validatorPerformances {
-		validator := k.StakingKeeper.Validator(ctx, validatorPerformance.ValAddress)
-		if validator == nil {
+		validator, err := k.StakingKeeper.Validator(ctx, validatorPerformance.ValAddress)
+		if err != nil {
 			continue
 		}
 

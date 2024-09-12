@@ -4,6 +4,8 @@ package evm
 import (
 	"context"
 
+	"cosmossdk.io/core/address"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -32,6 +34,7 @@ type AccountKeeper interface {
 	RemoveAccount(ctx context.Context, account sdk.AccountI)
 	GetParams(ctx context.Context) (params authtypes.Params)
 	SetModuleAccount(ctx context.Context, macc sdk.ModuleAccountI)
+	AddressCodec() address.Codec
 }
 
 // BankKeeper defines the expected interface needed to retrieve account balances.

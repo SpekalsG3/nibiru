@@ -7,7 +7,6 @@ import (
 
 	sdkerrors "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	"github.com/NibiruChain/nibiru/v2/x/oracle/types"
 )
@@ -152,10 +151,11 @@ func (ms msgServer) DelegateFeedConsent(
 	}
 
 	// Check the delegator is a validator
-	val := ms.StakingKeeper.Validator(ctx, operatorAddr)
-	if val == nil {
-		return nil, sdkerrors.Wrap(stakingtypes.ErrNoValidatorFound, msg.Operator)
+	val, err := ms.StakingKeeper.Validator(ctx, operatorAddr)
+	if err != nil {
+		return nil, err
 	}
+	_ = val
 
 	// Set the delegation
 	ms.Keeper.FeederDelegations.Insert(ctx, operatorAddr, delegateAddr)

@@ -97,9 +97,9 @@ func (k Keeper) ValidatorAccount(
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	validator, found := k.stakingKeeper.GetValidatorByConsAddr(ctx, consAddr)
-	if !found {
-		return nil, fmt.Errorf("validator not found for %s", consAddr.String())
+	validator, err := k.stakingKeeper.GetValidatorByConsAddr(ctx, consAddr)
+	if err != nil {
+		return nil, fmt.Errorf("validator not found: %s", err)
 	}
 
 	nibiruAddr := sdk.AccAddress(validator.GetOperator())
@@ -343,7 +343,7 @@ func (k Keeper) EstimateGasForEvmCallType(
 	} else {
 		// Query block gas limit
 		params := ctx.ConsensusParams()
-		if params != nil && params.Block != nil && params.Block.MaxGas > 0 {
+		if params.Block != nil && params.Block.MaxGas > 0 {
 			hi = uint64(params.Block.MaxGas)
 		} else {
 			hi = req.GasCap
@@ -366,7 +366,7 @@ func (k Keeper) EstimateGasForEvmCallType(
 	nonce := k.GetAccNonce(ctx, args.GetFrom())
 	args.Nonce = (*hexutil.Uint64)(&nonce)
 
-	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash().Bytes()))
+	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash()))
 
 	// convert the tx args to an ethereum message
 	msg, err := args.ToMessage(req.GasCap, cfg.BaseFee)
@@ -478,7 +478,7 @@ func (k Keeper) TraceTx(
 	ctx = ctx.WithHeaderHash(gethcommon.Hex2Bytes(req.BlockHash))
 
 	// to get the base fee we only need the block max gas in the consensus params
-	ctx = ctx.WithConsensusParams(&cmtproto.ConsensusParams{
+	ctx = ctx.WithConsensusParams(cmtproto.ConsensusParams{
 		Block: &cmtproto.BlockParams{MaxGas: req.BlockMaxGas},
 	})
 
@@ -496,7 +496,7 @@ func (k Keeper) TraceTx(
 
 	signer := gethcore.MakeSigner(cfg.ChainConfig, big.NewInt(ctx.BlockHeight()))
 
-	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash().Bytes()))
+	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash()))
 
 	// gas used at this point corresponds to GetProposerAddress & CalculateBaseFee
 	// need to reset gas meter per transaction to be consistent with tx execution
@@ -577,7 +577,7 @@ func (k Keeper) TraceCall(
 	ctx = ctx.WithHeaderHash(gethcommon.Hex2Bytes(req.BlockHash))
 
 	// to get the base fee we only need the block max gas in the consensus params
-	ctx = ctx.WithConsensusParams(&cmtproto.ConsensusParams{
+	ctx = ctx.WithConsensusParams(cmtproto.ConsensusParams{
 		Block: &cmtproto.BlockParams{MaxGas: req.BlockMaxGas},
 	})
 
@@ -593,7 +593,7 @@ func (k Keeper) TraceCall(
 		cfg.BaseFee = baseFee
 	}
 
-	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash().Bytes()))
+	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash()))
 
 	var tracerConfig json.RawMessage
 	if req.TraceConfig != nil && req.TraceConfig.TracerJsonConfig != "" {
@@ -665,7 +665,7 @@ func (k Keeper) TraceBlock(
 	ctx = ctx.WithHeaderHash(gethcommon.Hex2Bytes(req.BlockHash))
 
 	// to get the base fee we only need the block max gas in the consensus params
-	ctx = ctx.WithConsensusParams(&cmtproto.ConsensusParams{
+	ctx = ctx.WithConsensusParams(cmtproto.ConsensusParams{
 		Block: &cmtproto.BlockParams{MaxGas: req.BlockMaxGas},
 	})
 
@@ -686,7 +686,7 @@ func (k Keeper) TraceBlock(
 	txsLength := len(req.Txs)
 	results := make([]*evm.TxTraceResult, 0, txsLength)
 
-	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash().Bytes()))
+	txConfig := statedb.NewEmptyTxConfig(gethcommon.BytesToHash(ctx.HeaderHash()))
 
 	for i, tx := range req.Txs {
 		result := evm.TxTraceResult{}

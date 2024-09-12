@@ -171,8 +171,12 @@ func TestOracleTally(t *testing.T) {
 
 	validatorPerformances := make(types.ValidatorPerformances)
 	for _, valAddr := range valAddrs {
+		val, err := stakingKeeper.Validator(fixture.Ctx, valAddr)
+		if err != nil {
+			panic(err)
+		}
 		validatorPerformances[valAddr.String()] = types.NewValidatorPerformance(
-			stakingKeeper.Validator(fixture.Ctx, valAddr).GetConsensusPower(sdk.DefaultPowerReduction),
+			val.GetConsensusPower(sdk.DefaultPowerReduction),
 			valAddr,
 		)
 	}
@@ -187,8 +191,12 @@ func TestOracleTally(t *testing.T) {
 
 	expectedValidatorPerformances := make(types.ValidatorPerformances)
 	for _, valAddr := range valAddrs {
+		val, err := stakingKeeper.Validator(fixture.Ctx, valAddr)
+		if err != nil {
+			panic(err)
+		}
 		expectedValidatorPerformances[valAddr.String()] = types.NewValidatorPerformance(
-			stakingKeeper.Validator(fixture.Ctx, valAddr).GetConsensusPower(sdk.DefaultPowerReduction),
+			val.GetConsensusPower(sdk.DefaultPowerReduction),
 			valAddr,
 		)
 	}
@@ -373,13 +381,25 @@ func TestOracleExchangeRate(t *testing.T) {
 	expectedRewardAmt := sdk.NewDecCoinsFromCoins(ethUsdRewards, atomUsdRewards).
 		QuoDec(sdkmath.LegacyNewDec(8)). // total votes
 		MulDec(sdkmath.LegacyNewDec(2))  // votes won by val1 and val2
-	rewards := input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[0])
+	rewards, err := input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[0])
+	if err != nil {
+		panic(err)
+	}
 	assert.Equalf(t, expectedRewardAmt, rewards.Rewards, "%s <-> %s", expectedRewardAmt, rewards.Rewards)
-	rewards = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[1])
+	rewards, err = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[1])
+	if err != nil {
+		panic(err)
+	}
 	assert.Equalf(t, expectedRewardAmt, rewards.Rewards, "%s <-> %s", expectedRewardAmt, rewards.Rewards)
-	rewards = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[2])
+	rewards, err = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[2])
+	if err != nil {
+		panic(err)
+	}
 	assert.Equalf(t, expectedRewardAmt, rewards.Rewards, "%s <-> %s", expectedRewardAmt, rewards.Rewards)
-	rewards = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[3])
+	rewards, err = input.DistrKeeper.GetValidatorOutstandingRewards(input.Ctx.WithBlockHeight(2), ValAddrs[3])
+	if err != nil {
+		panic(err)
+	}
 	assert.Equalf(t, expectedRewardAmt, rewards.Rewards, "%s <-> %s", expectedRewardAmt, rewards.Rewards)
 }
 
@@ -449,7 +469,10 @@ func TestWhitelistedPairs(t *testing.T) {
 	t.Log("delete btc:usd for next vote period")
 	params.Whitelist = []asset.Pair{asset.Registry.Pair(denoms.ATOM, denoms.USD)}
 	fixture.OracleKeeper.Params.Set(fixture.Ctx, params)
-	perfs := fixture.OracleKeeper.UpdateExchangeRates(fixture.Ctx)
+	perfs, err := fixture.OracleKeeper.UpdateExchangeRates(fixture.Ctx)
+	if err != nil {
+		panic(err)
+	}
 
 	t.Log("validators 0-3 all voted -> expect win")
 	for valIdx := 0; valIdx < 4; valIdx++ {
@@ -475,7 +498,10 @@ func TestWhitelistedPairs(t *testing.T) {
 	priceVoteFromVal(1, block)
 	priceVoteFromVal(2, block)
 	priceVoteFromVal(3, block)
-	perfs = fixture.OracleKeeper.UpdateExchangeRates(fixture.Ctx)
+	perfs, err = fixture.OracleKeeper.UpdateExchangeRates(fixture.Ctx)
+	if err != nil {
+		panic(err)
+	}
 
 	t.Log("Although validators 0-2 voted, it's for the same period -> expect abstains for everyone")
 	for valIdx := 0; valIdx < 4; valIdx++ {

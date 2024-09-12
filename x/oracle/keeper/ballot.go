@@ -113,8 +113,13 @@ func (k Keeper) removeInvalidVotes(
 	pairVotes map[asset.Pair]types.ExchangeRateVotes,
 	whitelistedPairs set.Set[asset.Pair],
 ) {
+	total, err := k.StakingKeeper.TotalBondedTokens(ctx)
+	if err == nil {
+		return
+	}
 	totalBondedPower := sdk.TokensToConsensusPower(
-		k.StakingKeeper.TotalBondedTokens(ctx), k.StakingKeeper.PowerReduction(ctx),
+		total,
+		k.StakingKeeper.PowerReduction(ctx),
 	)
 
 	// Iterate through sorted keys for deterministic ordering.

@@ -24,7 +24,7 @@ func GenDeveloperFeeShare(r *rand.Rand) math.LegacyDec {
 func RandomizedGenState(simState *module.SimulationState) {
 	var developerFeeShare math.LegacyDec
 	simState.AppParams.GetOrGenerate(
-		simState.Cdc, DeveloperFeeShare, &developerFeeShare, simState.Rand,
+		DeveloperFeeShare, &developerFeeShare, simState.Rand,
 		func(r *rand.Rand) { developerFeeShare = GenDeveloperFeeShare(r) },
 	)
 

@@ -189,7 +189,7 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 }
 
 // RegisterStoreDecoder implements module.AppModuleSimulation.
-func (AppModule) RegisterStoreDecoder(sdk.StoreDecoderRegistry) {
+func (AppModule) RegisterStoreDecoder(simtypes.StoreDecoderRegistry) {
 }
 
 // WeightedOperations implements module.AppModuleSimulation.
