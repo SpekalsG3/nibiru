@@ -4,7 +4,7 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 
 	// devgas "github.com/NibiruChain/nibiru/x/devgas/v1/types"
-	// epochs "github.com/NibiruChain/nibiru/x/epochs/types"
+	epochs "github.com/NibiruChain/nibiru/x/epochs/types"
 	// inflation "github.com/NibiruChain/nibiru/x/inflation/types"
 	oracle "github.com/NibiruChain/nibiru/x/oracle/types"
 	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
@@ -106,9 +106,9 @@ func WasmAcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
 		// "/nibiru.tokenfactory.v1.Query/Params":    new(tokenfactory.QueryParamsResponse),
 		// "/nibiru.tokenfactory.v1.Query/DenomInfo": new(tokenfactory.QueryDenomInfoResponse),
 
-		// nibiru epochs
-		// "/nibiru.epochs.v1.Query/EpochInfos":   new(epochs.QueryEpochInfosResponse),
-		// "/nibiru.epochs.v1.Query/CurrentEpoch": new(epochs.QueryCurrentEpochResponse),
+		nibiru epochs
+		"/nibiru.epochs.v1.Query/EpochInfos":   new(epochs.QueryEpochInfosResponse),
+		"/nibiru.epochs.v1.Query/CurrentEpoch": new(epochs.QueryCurrentEpochResponse),
 
 		// nibiru inflation
 		// "/nibiru.inflation.v1.Query/Period":             new(inflation.QueryPeriodResponse),
