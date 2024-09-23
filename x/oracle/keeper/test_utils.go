@@ -11,9 +11,10 @@ import (
 	storetypes "cosmossdk.io/store/types"
 	"github.com/NibiruChain/nibiru/x/common/denoms"
 	"github.com/NibiruChain/nibiru/x/oracle/types"
-	"github.com/NibiruChain/nibiru/x/sudo"
-	sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
-	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
+
+	// "github.com/NibiruChain/nibiru/x/sudo"
+	// sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
+	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	dbm "github.com/cometbft/cometbft-db"
 	"github.com/cometbft/cometbft/crypto"
 	"github.com/cometbft/cometbft/crypto/secp256k1"
@@ -56,7 +57,7 @@ var ModuleBasics = module.NewBasicManager(
 	distr.AppModuleBasic{},
 	staking.AppModuleBasic{},
 	params.AppModuleBasic{},
-	sudo.AppModuleBasic{},
+	// sudo.AppModuleBasic{},
 )
 
 // MakeTestCodec nolint
@@ -143,7 +144,7 @@ func CreateTestFixture(t *testing.T) TestFixture {
 	keyStaking := sdk.NewKVStoreKey(stakingtypes.StoreKey)
 	keySlashing := sdk.NewKVStoreKey(slashingtypes.StoreKey)
 	keyDistr := sdk.NewKVStoreKey(distrtypes.StoreKey)
-	keySudo := sdk.NewKVStoreKey(sudotypes.StoreKey)
+	// keySudo := sdk.NewKVStoreKey(sudotypes.StoreKey)
 
 	govModuleAddr := authtypes.NewModuleAddress(govtypes.ModuleName).String()
 

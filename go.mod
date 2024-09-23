@@ -32,7 +32,7 @@ require (
 	github.com/gogo/protobuf v1.3.3 // indirect
 	github.com/golang/mock v1.6.0
 	github.com/golang/protobuf v1.5.4
-	github.com/google/gofuzz v1.2.0 // indirect
+	github.com/google/gofuzz v1.2.0
 	github.com/gorilla/mux v1.8.1
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
@@ -42,19 +42,20 @@ require (
 	github.com/rakyll/statik v0.1.7
 	github.com/spf13/cast v1.6.0
 	github.com/spf13/cobra v1.8.0
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20240415180920-8c6c420018be // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20240415180920-8c6c420018be
 	google.golang.org/grpc v1.64.0
-	google.golang.org/protobuf v1.34.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	google.golang.org/protobuf v1.34.1
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
 	cosmossdk.io/collections v0.4.0
 	cosmossdk.io/math v1.3.0
 	cosmossdk.io/x/tx v0.13.3
+	github.com/cometbft/cometbft/api v1.0.0-rc.1
 	github.com/cosmos/cosmos-db v1.0.2
 	github.com/cosmos/ibc-go/modules/capability v1.0.0
 	github.com/cosmos/rosetta v0.50.6
@@ -198,6 +199,7 @@ require (
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d // indirect
 	github.com/tendermint/go-amino v0.16.0 // indirect
