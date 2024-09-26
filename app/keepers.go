@@ -114,7 +114,7 @@ import (
 	// "github.com/NibiruChain/nibiru/x/epochs"
 	// epochskeeper "github.com/NibiruChain/nibiru/x/epochs/keeper"
 	// epochstypes "github.com/NibiruChain/nibiru/x/epochs/types"
-	"github.com/NibiruChain/nibiru/x/sudo/keeper"
+	"github.com/NibiruChain/nibiru/x/sudo"
 
 	// "github.com/NibiruChain/nibiru/x/evm"
 	// "github.com/NibiruChain/nibiru/x/evm/evmmodule"
@@ -126,9 +126,9 @@ import (
 	oracle "github.com/NibiruChain/nibiru/x/oracle"
 	oraclekeeper "github.com/NibiruChain/nibiru/x/oracle/keeper"
 	oracletypes "github.com/NibiruChain/nibiru/x/oracle/types"
-	"github.com/NibiruChain/nibiru/x/sudo"
-	sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
-	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
+	// "github.com/NibiruChain/nibiru/x/sudo"
+	// sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
+	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	// tokenfactory "github.com/NibiruChain/nibiru/x/tokenfactory"
 	// tokenfactorykeeper "github.com/NibiruChain/nibiru/x/tokenfactory/keeper"
 	// tokenfactorytypes "github.com/NibiruChain/nibiru/x/tokenfactory/types"
@@ -185,7 +185,7 @@ type AppKeepers struct {
 	// EpochsKeeper epochskeeper.Keeper
 	OracleKeeper oraclekeeper.Keeper
 	// InflationKeeper    inflationkeeper.Keeper
-	SudoKeeper sudokeeper.Keeper
+	// SudoKeeper sudokeeper.Keeper
 	// DevGasKeeper       devgaskeeper.Keeper
 	// TokenFactoryKeeper tokenfactorykeeper.Keeper
 	// EvmKeeper          evmkeeper.Keeper
@@ -227,7 +227,7 @@ func initStoreKeys() (
 		oracletypes.StoreKey,
 		// epochstypes.StoreKey,
 		// inflationtypes.StoreKey,
-		sudotypes.StoreKey,
+		// sudotypes.StoreKey,
 		wasmtypes.StoreKey,
 		// devgastypes.StoreKey,
 		// tokenfactorytypes.StoreKey,
@@ -402,13 +402,16 @@ func (app *NibiruApp) InitKeepers(
 
 	// ---------------------------------- Nibiru Chain x/ keepers
 
-	app.SudoKeeper = keeper.NewKeeper(
-		appCodec, keys[sudotypes.StoreKey],
-	)
+	// app.SudoKeeper = keeper.NewKeeper(
+	// 	appCodec, keys[sudotypes.StoreKey],
+	// )
 
 	app.OracleKeeper = oraclekeeper.NewKeeper(appCodec, keys[oracletypes.StoreKey],
-		app.AccountKeeper, app.BankKeeper, app.DistrKeeper, app.stakingKeeper, app.slashingKeeper,
-		app.SudoKeeper,
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.DistrKeeper,
+		app.stakingKeeper,
+		app.slashingKeeper,
 		distrtypes.ModuleName,
 	)
 
@@ -688,7 +691,7 @@ func (app *NibiruApp) initAppModules(
 		oracle.NewAppModule(appCodec, app.OracleKeeper, app.AccountKeeper, app.BankKeeper),
 		// epochs.NewAppModule(appCodec, app.EpochsKeeper),
 		// inflation.NewAppModule(app.InflationKeeper, app.AccountKeeper, *app.stakingKeeper),
-		sudo.NewAppModule(appCodec, app.SudoKeeper),
+		// sudo.NewAppModule(appCodec, app.SudoKeeper),
 		// genmsg.NewAppModule(app.MsgServiceRouter()),
 
 		// ibc
@@ -766,7 +769,7 @@ func orderedModuleNames() []string {
 		// epochstypes.ModuleName,
 		oracletypes.ModuleName,
 		// inflationtypes.ModuleName,
-		sudotypes.ModuleName,
+		// sudotypes.ModuleName,
 
 		// --------------------------------------------------------------------
 		// IBC modules
@@ -910,7 +913,7 @@ func ModuleAccPerms() map[string][]string {
 
 		// evm.ModuleName:                   {authtypes.Minter, authtypes.Burner},
 		// epochstypes.ModuleName: {},
-		sudotypes.ModuleName: {},
+		// sudotypes.ModuleName: {},
 		// common.TreasuryPoolModuleAccount: {},
 		wasmtypes.ModuleName: {authtypes.Burner},
 		// tokenfactorytypes.ModuleName:     {authtypes.Minter, authtypes.Burner},

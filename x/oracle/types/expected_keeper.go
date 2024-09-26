@@ -49,10 +49,3 @@ type BankKeeper interface {
 	// only used for simulation
 	SpendableCoins(ctx context.Context, addr sdk.AccAddress) sdk.Coins
 }
-
-type SudoKeeper interface {
-	// CheckPermissions Checks if a contract is contained within the set of sudo
-	// contracts defined in the x/sudo module. These smart contracts are able to
-	// execute certain permissioned functions.
-	CheckPermissions(contract sdk.AccAddress, ctx sdk.Context) error
-}

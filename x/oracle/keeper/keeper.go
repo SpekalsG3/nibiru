@@ -28,7 +28,6 @@ type Keeper struct {
 	distrKeeper    types.DistributionKeeper
 	StakingKeeper  types.StakingKeeper
 	slashingKeeper types.SlashingKeeper
-	sudoKeeper     types.SudoKeeper
 
 	distrModuleName string
 
@@ -59,7 +58,6 @@ func NewKeeper(
 	distrKeeper types.DistributionKeeper,
 	stakingKeeper types.StakingKeeper,
 	slashingKeeper types.SlashingKeeper,
-	sudoKeeper types.SudoKeeper,
 
 	distrName string,
 ) Keeper {
@@ -76,7 +74,6 @@ func NewKeeper(
 		distrKeeper:       distrKeeper,
 		StakingKeeper:     stakingKeeper,
 		slashingKeeper:    slashingKeeper,
-		sudoKeeper:        sudoKeeper,
 		distrModuleName:   distrName,
 		Params:            collections.NewItem(storeKey, 11, collections.ProtoValueEncoder[types.Params](cdc)),
 		ExchangeRates:     collections.NewMap(storeKey, 1, asset.PairKeyEncoder, collections.ProtoValueEncoder[types.DatedPrice](cdc)),

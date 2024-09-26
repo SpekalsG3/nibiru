@@ -31,11 +31,6 @@ service Msg {
       returns (MsgDelegateFeedConsentResponse) {
     option (google.api.http).post = "/nibiru/oracle/feeder-delegate";
   }
-
-  rpc EditOracleParams(MsgEditOracleParams)
-      returns (MsgEditOracleParamsResponse) {
-    option (google.api.http).post = "/nibiru/oracle/edit-oracle-params";
-  }
 }
 
 // MsgAggregateExchangeRatePrevote represents a message to submit
@@ -95,60 +90,3 @@ message MsgDelegateFeedConsent {
 // MsgDelegateFeedConsentResponse defines the Msg/DelegateFeedConsent response
 // type.
 message MsgDelegateFeedConsentResponse {}
-
-// MsgEditOracleParams: gRPC tx message for updating the x/oracle module params
-// [SUDO] Only callable by sudoers.
-message MsgEditOracleParams {
-  string sender = 1;
-
-  string vote_period = 2 [
-    (gogoproto.customtype) = "cosmossdk.io/math.Int",
-    (gogoproto.nullable) = true
-  ];
-
-  string vote_threshold = 3 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = true
-  ];
-
-  string reward_band = 4 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = true
-  ];
-
-  repeated string whitelist = 5 [ (gogoproto.nullable) = true ];
-
-  string slash_fraction = 6 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = true
-  ];
-
-  string slash_window = 7 [
-    (gogoproto.customtype) = "cosmossdk.io/math.Int",
-    (gogoproto.nullable) = true
-  ];
-
-  string min_valid_per_window = 8 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = true
-  ];
-
-  string twap_lookback_window = 9 [
-    (gogoproto.customtype) = "cosmossdk.io/math.Int",
-    (gogoproto.nullable) = true
-  ];
-
-  string min_voters = 10 [
-    (gogoproto.customtype) = "cosmossdk.io/math.Int",
-    (gogoproto.nullable) = true
-  ];
-
-  string validator_fee_ratio = 11 [
-    (gogoproto.customtype) = "cosmossdk.io/math.LegacyDec",
-    (gogoproto.nullable) = true
-  ];
-}
-
-// MsgEditOracleParamsResponse defines the Msg/EditOracleParams response
-// type.
-message MsgEditOracleParamsResponse { nibiru.oracle.v1.Params new_params = 1; }

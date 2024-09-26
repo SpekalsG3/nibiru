@@ -14,9 +14,9 @@ import (
 	"github.com/NibiruChain/nibiru/x/common/denoms"
 	"github.com/NibiruChain/nibiru/x/oracle/types"
 
-	"github.com/NibiruChain/nibiru/x/sudo"
-	sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
-	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
+	// "github.com/NibiruChain/nibiru/x/sudo"
+	// sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
+	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	"github.com/cometbft/cometbft/crypto"
 	"github.com/cometbft/cometbft/crypto/secp256k1"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
@@ -61,7 +61,7 @@ var ModuleBasics = module.NewBasicManager(
 	distr.AppModuleBasic{},
 	staking.AppModuleBasic{},
 	params.AppModuleBasic{},
-	sudo.AppModuleBasic{},
+	// sudo.AppModuleBasic{},
 )
 
 // MakeTestCodec nolint
@@ -134,7 +134,7 @@ type TestFixture struct {
 	OracleKeeper  Keeper
 	StakingKeeper stakingkeeper.Keeper
 	DistrKeeper   distrkeeper.Keeper
-	SudoKeeper    types.SudoKeeper
+	// SudoKeeper    types.SudoKeeper
 }
 
 // CreateTestFixture nolint
@@ -148,7 +148,7 @@ func CreateTestFixture(t *testing.T) TestFixture {
 	keyStaking := storetypes.NewKVStoreKey(stakingtypes.StoreKey)
 	keySlashing := storetypes.NewKVStoreKey(slashingtypes.StoreKey)
 	keyDistr := storetypes.NewKVStoreKey(distrtypes.StoreKey)
-	keySudo := storetypes.NewKVStoreKey(sudotypes.StoreKey)
+	// keySudo := storetypes.NewKVStoreKey(sudotypes.StoreKey)
 
 	db := dbm.NewMemDB()
 	ms := store.NewCommitMultiStore(db, log.NewNopLogger(), metrics.NewNoOpMetrics())
@@ -254,15 +254,15 @@ func CreateTestFixture(t *testing.T) TestFixture {
 
 	bankKeeper.SendCoinsFromModuleToModule(ctx, faucetAccountName, stakingtypes.NotBondedPoolName, sdk.NewCoins(sdk.NewCoin(denoms.NIBI, InitTokens.MulRaw(int64(len(Addrs))))))
 
-	sudoKeeper := sudokeeper.NewKeeper(appCodec, keySudo)
-	sudoAcc := authtypes.NewEmptyModuleAccount(sudotypes.ModuleName)
+	// sudoKeeper := sudokeeper.NewKeeper(appCodec, keySudo)
+	// sudoAcc := authtypes.NewEmptyModuleAccount(sudotypes.ModuleName)
 
 	accountKeeper.SetModuleAccount(ctx, feeCollectorAcc)
 	accountKeeper.SetModuleAccount(ctx, bondPool)
 	accountKeeper.SetModuleAccount(ctx, notBondedPool)
 	accountKeeper.SetModuleAccount(ctx, distrAcc)
 	accountKeeper.SetModuleAccount(ctx, oracleAcc)
-	accountKeeper.SetModuleAccount(ctx, sudoAcc)
+	// accountKeeper.SetModuleAccount(ctx, sudoAcc)
 
 	for _, addr := range Addrs {
 		accountKeeper.SetAccount(ctx, authtypes.NewBaseAccountWithAddress(addr))
@@ -278,7 +278,7 @@ func CreateTestFixture(t *testing.T) TestFixture {
 		distrKeeper,
 		stakingKeeper,
 		slashingKeeper,
-		sudoKeeper,
+		// sudoKeeper,
 		distrtypes.ModuleName,
 	)
 
@@ -295,7 +295,7 @@ func CreateTestFixture(t *testing.T) TestFixture {
 		keeper,
 		*stakingKeeper,
 		distrKeeper,
-		sudoKeeper,
+		// sudoKeeper,
 	}
 }
 

@@ -14,7 +14,6 @@ var (
 	_ sdk.Msg = &MsgDelegateFeedConsent{}
 	_ sdk.Msg = &MsgAggregateExchangeRatePrevote{}
 	_ sdk.Msg = &MsgAggregateExchangeRateVote{}
-	_ sdk.Msg = &MsgEditOracleParams{}
 )
 
 // oracle message types
@@ -22,7 +21,6 @@ const (
 	TypeMsgDelegateFeedConsent          = "delegate_feeder"
 	TypeMsgAggregateExchangeRatePrevote = "aggregate_exchange_rate_prevote"
 	TypeMsgAggregateExchangeRateVote    = "aggregate_exchange_rate_vote"
-	TypeMsgEditOracleParams             = "edit_oracle_params"
 )
 
 //-------------------------------------------------
@@ -196,28 +194,4 @@ func (msg MsgDelegateFeedConsent) ValidateBasic() error {
 	}
 
 	return nil
-}
-
-// ------------------------ MsgEditOracleParams ------------------------
-
-func (m MsgEditOracleParams) Route() string { return RouterKey }
-func (m MsgEditOracleParams) Type() string  { return TypeMsgEditOracleParams }
-
-func (m MsgEditOracleParams) ValidateBasic() error {
-	if _, err := sdk.AccAddressFromBech32(m.Sender); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m MsgEditOracleParams) GetSignBytes() []byte {
-	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(&m))
-}
-
-func (m MsgEditOracleParams) GetSigners() []sdk.AccAddress {
-	signer, err := sdk.AccAddressFromBech32(m.Sender)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{signer}
 }
