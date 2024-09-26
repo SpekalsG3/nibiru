@@ -4,6 +4,7 @@ package nibiru.oracle.v1;
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "nibiru/oracle/v1/oracle.proto";
+import "cosmos/msg/v1/msg.proto";
 
 option go_package = "github.com/NibiruChain/nibiru/x/oracle/types";
 
@@ -40,6 +41,8 @@ service Msg {
 // MsgAggregateExchangeRatePrevote represents a message to submit
 // aggregate exchange rate prevote.
 message MsgAggregateExchangeRatePrevote {
+  option (cosmos.msg.v1.signer) = "feeder";
+
   option (gogoproto.equal) = false;
   option (gogoproto.goproto_getters) = false;
 
@@ -59,6 +62,8 @@ message MsgAggregateExchangeRatePrevoteResponse {}
 // MsgAggregateExchangeRateVote represents a message to submit
 // aggregate exchange rate vote.
 message MsgAggregateExchangeRateVote {
+  option (cosmos.msg.v1.signer) = "feeder";
+
   option (gogoproto.equal) = false;
   option (gogoproto.goproto_getters) = false;
 

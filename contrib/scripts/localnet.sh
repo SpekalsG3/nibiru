@@ -144,6 +144,7 @@ $BINARY config set client keyring-backend test
 $BINARY config set client chain-id $CHAIN_ID
 $BINARY config set client broadcast-mode sync
 $BINARY config set client output json
+$BINARY config set app grpc.enable true # used by pricefeeder
 $BINARY config view client # Prints config.
 
 # Enable API Server
