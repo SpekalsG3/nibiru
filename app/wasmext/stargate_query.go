@@ -7,7 +7,7 @@ import (
 	epochs "github.com/NibiruChain/nibiru/x/epochs/types"
 	// inflation "github.com/NibiruChain/nibiru/x/inflation/types"
 	oracle "github.com/NibiruChain/nibiru/x/oracle/types"
-	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
+	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	// tokenfactory "github.com/NibiruChain/nibiru/x/tokenfactory/types"
 
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -106,7 +106,7 @@ func WasmAcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
 		// "/nibiru.tokenfactory.v1.Query/Params":    new(tokenfactory.QueryParamsResponse),
 		// "/nibiru.tokenfactory.v1.Query/DenomInfo": new(tokenfactory.QueryDenomInfoResponse),
 
-		nibiru epochs
+		// nibiru epochs
 		"/nibiru.epochs.v1.Query/EpochInfos":   new(epochs.QueryEpochInfosResponse),
 		"/nibiru.epochs.v1.Query/CurrentEpoch": new(epochs.QueryCurrentEpochResponse),
 
@@ -118,7 +118,7 @@ func WasmAcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
 		// "/nibiru.inflation.v1.Query/InflationRate":      new(inflation.QueryInflationRateResponse),
 		// "/nibiru.inflation.v1.Query/Params":             new(inflation.QueryParamsResponse),
 
-		nibiru oracle
+		// nibiru oracle
 		"/nibiru.oracle.v1.Query/ExchangeRate":      new(oracle.QueryExchangeRateResponse),
 		"/nibiru.oracle.v1.Query/ExchangeRateTwap":  new(oracle.QueryExchangeRateResponse),
 		"/nibiru.oracle.v1.Query/ExchangeRates":     new(oracle.QueryExchangeRatesResponse),
@@ -133,7 +133,7 @@ func WasmAcceptedStargateQueries() wasmkeeper.AcceptedStargateQueries {
 		"/nibiru.oracle.v1.Query/Params":            new(oracle.QueryParamsResponse),
 
 		// nibiru sudo
-		// "/nibiru.sudo.v1.Query/QuerySudoers": new(sudotypes.QuerySudoersResponse),
+		"/nibiru.sudo.v1.Query/QuerySudoers": new(sudotypes.QuerySudoersResponse),
 
 		// nibiru devgas
 		// "/nibiru.devgas.v1.Query/FeeShares":             new(devgas.QueryFeeSharesResponse),

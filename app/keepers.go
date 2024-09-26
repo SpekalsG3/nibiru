@@ -104,6 +104,7 @@ import (
 	ibctm "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
 	ibcmock "github.com/cosmos/ibc-go/v8/testing/mock"
 	"github.com/spf13/cast"
+
 	// ---------------------------------------------------------------
 	// Nibiru Custom Modules
 	// "github.com/NibiruChain/nibiru/x/common"
@@ -113,6 +114,8 @@ import (
 	"github.com/NibiruChain/nibiru/x/epochs"
 	epochskeeper "github.com/NibiruChain/nibiru/x/epochs/keeper"
 	epochstypes "github.com/NibiruChain/nibiru/x/epochs/types"
+	"github.com/NibiruChain/nibiru/x/sudo/keeper"
+
 	// "github.com/NibiruChain/nibiru/x/evm"
 	// "github.com/NibiruChain/nibiru/x/evm/evmmodule"
 	// evmkeeper "github.com/NibiruChain/nibiru/x/evm/keeper"
@@ -123,9 +126,9 @@ import (
 	oracle "github.com/NibiruChain/nibiru/x/oracle"
 	oraclekeeper "github.com/NibiruChain/nibiru/x/oracle/keeper"
 	oracletypes "github.com/NibiruChain/nibiru/x/oracle/types"
-	// "github.com/NibiruChain/nibiru/x/sudo"
-	// "github.com/NibiruChain/nibiru/x/sudo/keeper"
-	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
+	"github.com/NibiruChain/nibiru/x/sudo"
+	sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
+	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	// tokenfactory "github.com/NibiruChain/nibiru/x/tokenfactory"
 	// tokenfactorykeeper "github.com/NibiruChain/nibiru/x/tokenfactory/keeper"
 	// tokenfactorytypes "github.com/NibiruChain/nibiru/x/tokenfactory/types"
@@ -179,10 +182,10 @@ type AppKeepers struct {
 	// ---------------
 	// Nibiru keepers
 	// ---------------
-	EpochsKeeper       epochskeeper.Keeper
-	OracleKeeper       oraclekeeper.Keeper
+	EpochsKeeper epochskeeper.Keeper
+	OracleKeeper oraclekeeper.Keeper
 	// InflationKeeper    inflationkeeper.Keeper
-	// SudoKeeper         keeper.Keeper
+	SudoKeeper sudokeeper.Keeper
 	// DevGasKeeper       devgaskeeper.Keeper
 	// TokenFactoryKeeper tokenfactorykeeper.Keeper
 	// EvmKeeper          evmkeeper.Keeper
@@ -224,7 +227,7 @@ func initStoreKeys() (
 		oracletypes.StoreKey,
 		epochstypes.StoreKey,
 		// inflationtypes.StoreKey,
-		// sudotypes.StoreKey,
+		sudotypes.StoreKey,
 		wasmtypes.StoreKey,
 		// devgastypes.StoreKey,
 		// tokenfactorytypes.StoreKey,
@@ -399,9 +402,9 @@ func (app *NibiruApp) InitKeepers(
 
 	// ---------------------------------- Nibiru Chain x/ keepers
 
-	// app.SudoKeeper = keeper.NewKeeper(
-	// 	appCodec, keys[sudotypes.StoreKey],
-	// )
+	app.SudoKeeper = keeper.NewKeeper(
+		appCodec, keys[sudotypes.StoreKey],
+	)
 
 	app.OracleKeeper = oraclekeeper.NewKeeper(appCodec, keys[oracletypes.StoreKey],
 		app.AccountKeeper, app.BankKeeper, app.DistrKeeper, app.stakingKeeper, app.slashingKeeper,
@@ -420,7 +423,7 @@ func (app *NibiruApp) InitKeepers(
 
 	app.EpochsKeeper.SetHooks(
 		epochstypes.NewMultiEpochHooks(
-			app.InflationKeeper.Hooks(),
+			// app.InflationKeeper.Hooks(),
 			app.OracleKeeper.Hooks(),
 		),
 	)
@@ -685,7 +688,7 @@ func (app *NibiruApp) initAppModules(
 		oracle.NewAppModule(appCodec, app.OracleKeeper, app.AccountKeeper, app.BankKeeper),
 		epochs.NewAppModule(appCodec, app.EpochsKeeper),
 		// inflation.NewAppModule(app.InflationKeeper, app.AccountKeeper, *app.stakingKeeper),
-		// sudo.NewAppModule(appCodec, app.SudoKeeper),
+		sudo.NewAppModule(appCodec, app.SudoKeeper),
 		// genmsg.NewAppModule(app.MsgServiceRouter()),
 
 		// ibc
@@ -763,7 +766,7 @@ func orderedModuleNames() []string {
 		epochstypes.ModuleName,
 		oracletypes.ModuleName,
 		// inflationtypes.ModuleName,
-		// sudotypes.ModuleName,
+		sudotypes.ModuleName,
 
 		// --------------------------------------------------------------------
 		// IBC modules
@@ -883,7 +886,7 @@ func ModuleBasicManager() module.BasicManager {
 		oracle.AppModuleBasic{},
 		epochs.AppModuleBasic{},
 		// inflation.AppModuleBasic{},
-		// sudo.AppModuleBasic{},
+		sudo.AppModuleBasic{},
 		wasm.AppModuleBasic{},
 		// devgas.AppModuleBasic{},
 		// tokenfactory.AppModuleBasic{},
@@ -901,13 +904,13 @@ func ModuleAccPerms() map[string][]string {
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		oracletypes.ModuleName:         {},
-		ibctransfertypes.ModuleName: {authtypes.Minter, authtypes.Burner},
-		ibcfeetypes.ModuleName:      {},
-		icatypes.ModuleName:         {},
+		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		ibcfeetypes.ModuleName:         {},
+		icatypes.ModuleName:            {},
 
 		// evm.ModuleName:                   {authtypes.Minter, authtypes.Burner},
-		epochstypes.ModuleName:           {},
-		// sudotypes.ModuleName:             {},
+		epochstypes.ModuleName: {},
+		sudotypes.ModuleName:             {},
 		// common.TreasuryPoolModuleAccount: {},
 		wasmtypes.ModuleName: {authtypes.Burner},
 		// tokenfactorytypes.ModuleName:     {authtypes.Minter, authtypes.Burner},

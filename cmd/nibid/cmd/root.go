@@ -29,7 +29,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/NibiruChain/nibiru/app/appconst"
-	// "github.com/NibiruChain/nibiru/x/sudo/cli"
+	"github.com/NibiruChain/nibiru/x/sudo/cli"
 
 	"github.com/NibiruChain/nibiru/app"
 	oraclecli "github.com/NibiruChain/nibiru/x/oracle/client/cli"
@@ -132,7 +132,7 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig app.EncodingConfig) {
 		genesisCommand(
 			encodingConfig,
 			oraclecli.AddGenesisPricefeederDelegationCmd(app.DefaultNodeHome),
-			// cli.AddSudoRootAccountCmd(app.DefaultNodeHome),
+			cli.AddSudoRootAccountCmd(app.DefaultNodeHome),
 		),
 		queryCommand(),
 		txCommand(),

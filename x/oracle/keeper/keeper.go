@@ -11,7 +11,6 @@ import (
 	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	"github.com/NibiruChain/collections"
 
@@ -118,10 +117,12 @@ func (k Keeper) ValidateFeeder(
 	}
 
 	// Check that the given validator is in the active set for consensus.
-	if val := k.StakingKeeper.Validator(ctx, validatorAddr); val == nil || !val.IsBonded() {
+	if val, err := k.StakingKeeper.Validator(ctx, validatorAddr); err != nil || !val.IsBonded() {
 		return sdkerrors.Wrapf(
-			stakingtypes.ErrNoValidatorFound,
-			"validator %s is not active set", validatorAddr.String())
+			err,
+			"validator %s is not active set",
+			validatorAddr.String(),
+		)
 	}
 
 	return nil

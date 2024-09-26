@@ -8,26 +8,30 @@ import (
 	"cosmossdk.io/log"
 	"cosmossdk.io/math"
 	"cosmossdk.io/store"
+	"cosmossdk.io/store/metrics"
 	storetypes "cosmossdk.io/store/types"
+	"github.com/NibiruChain/nibiru/app/appconst"
 	"github.com/NibiruChain/nibiru/x/common/denoms"
 	"github.com/NibiruChain/nibiru/x/oracle/types"
 
-	// "github.com/NibiruChain/nibiru/x/sudo"
-	// sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
-	// sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
-	dbm "github.com/cometbft/cometbft-db"
+	"github.com/NibiruChain/nibiru/x/sudo"
+	sudokeeper "github.com/NibiruChain/nibiru/x/sudo/keeper"
+	sudotypes "github.com/NibiruChain/nibiru/x/sudo/types"
 	"github.com/cometbft/cometbft/crypto"
 	"github.com/cometbft/cometbft/crypto/secp256k1"
-	tmproto "github.com/cometbft/cometbft/types"
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/std"
 	"github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/types/module/testutil"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -57,7 +61,7 @@ var ModuleBasics = module.NewBasicManager(
 	distr.AppModuleBasic{},
 	staking.AppModuleBasic{},
 	params.AppModuleBasic{},
-	// sudo.AppModuleBasic{},
+	sudo.AppModuleBasic{},
 )
 
 // MakeTestCodec nolint
@@ -136,21 +140,19 @@ type TestFixture struct {
 // CreateTestFixture nolint
 // Creates a base app, with 5 accounts,
 func CreateTestFixture(t *testing.T) TestFixture {
-	keyAcc := sdk.NewKVStoreKey(authtypes.StoreKey)
-	keyBank := sdk.NewKVStoreKey(banktypes.StoreKey)
-	keyParams := sdk.NewKVStoreKey(paramstypes.StoreKey)
-	tKeyParams := sdk.NewTransientStoreKey(paramstypes.TStoreKey)
-	keyOracle := sdk.NewKVStoreKey(types.StoreKey)
-	keyStaking := sdk.NewKVStoreKey(stakingtypes.StoreKey)
-	keySlashing := sdk.NewKVStoreKey(slashingtypes.StoreKey)
-	keyDistr := sdk.NewKVStoreKey(distrtypes.StoreKey)
-	// keySudo := sdk.NewKVStoreKey(sudotypes.StoreKey)
-
-	govModuleAddr := authtypes.NewModuleAddress(govtypes.ModuleName).String()
+	keyAcc := storetypes.NewKVStoreKey(authtypes.StoreKey)
+	keyBank := storetypes.NewKVStoreKey(banktypes.StoreKey)
+	keyParams := storetypes.NewKVStoreKey(paramstypes.StoreKey)
+	tKeyParams := storetypes.NewTransientStoreKey(paramstypes.TStoreKey)
+	keyOracle := storetypes.NewKVStoreKey(types.StoreKey)
+	keyStaking := storetypes.NewKVStoreKey(stakingtypes.StoreKey)
+	keySlashing := storetypes.NewKVStoreKey(slashingtypes.StoreKey)
+	keyDistr := storetypes.NewKVStoreKey(distrtypes.StoreKey)
+	keySudo := storetypes.NewKVStoreKey(sudotypes.StoreKey)
 
 	db := dbm.NewMemDB()
-	ms := store.NewCommitMultiStore(db)
-	ctx := sdk.NewContext(ms, tmproto.Header{Time: time.Now().UTC(), Height: 1}, false, log.NewNopLogger())
+	ms := store.NewCommitMultiStore(db, log.NewNopLogger(), metrics.NewNoOpMetrics())
+	ctx := sdk.NewContext(ms, cmtproto.Header{Time: time.Now().UTC(), Height: 1}, false, log.NewNopLogger())
 	encodingConfig := MakeEncodingConfig(t)
 	appCodec, legacyAmino := encodingConfig.Codec, encodingConfig.Amino
 
@@ -183,50 +185,65 @@ func CreateTestFixture(t *testing.T) TestFixture {
 
 	accountKeeper := authkeeper.NewAccountKeeper(
 		appCodec,
-		keyAcc,
+		runtime.NewKVStoreService(keyAcc),
 		authtypes.ProtoBaseAccount,
 		maccPerms,
-		sdk.GetConfig().GetBech32AccountAddrPrefix(),
+		authcodec.NewBech32Codec(appconst.AccountAddressPrefix),
+		appconst.AccountAddressPrefix,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
 	bankKeeper := bankkeeper.NewBaseKeeper(
 		appCodec,
-		keyBank,
+		runtime.NewKVStoreService(keyBank),
 		accountKeeper,
 		blackListAddrs,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		ctx.Logger().With("module", "x/bank"),
 	)
 
 	totalSupply := sdk.NewCoins(sdk.NewCoin(denoms.NIBI, InitTokens.MulRaw(int64(len(Addrs)*10))))
 	bankKeeper.MintCoins(ctx, faucetAccountName, totalSupply)
 
+	validatorAddressPrefix := appconst.AccountAddressPrefix + "valoper"
+	consNodeAddressPrefix := appconst.AccountAddressPrefix + "valcons"
 	stakingKeeper := stakingkeeper.NewKeeper(
 		appCodec,
-		keyStaking,
+		runtime.NewKVStoreService(keyStaking),
 		accountKeeper,
 		bankKeeper,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		authcodec.NewBech32Codec(validatorAddressPrefix),
+		authcodec.NewBech32Codec(consNodeAddressPrefix),
 	)
 	stakingParams := stakingtypes.DefaultParams()
 	stakingParams.BondDenom = denoms.NIBI
 	stakingKeeper.SetParams(ctx, stakingParams)
 
-	slashingKeeper := slashingkeeper.NewKeeper(appCodec, legacyAmino, keySlashing, stakingKeeper, govModuleAddr)
+	slashingKeeper := slashingkeeper.NewKeeper(
+		appCodec,
+		legacyAmino,
+		runtime.NewKVStoreService(keySlashing),
+		stakingKeeper,
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+	)
 
 	distrKeeper := distrkeeper.NewKeeper(
 		appCodec,
-		keyDistr,
-		accountKeeper, bankKeeper, stakingKeeper,
+		runtime.NewKVStoreService(keyDistr),
+		accountKeeper,
+		bankKeeper,
+		stakingKeeper,
 		authtypes.FeeCollectorName,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
 
-	distrKeeper.SetFeePool(ctx, distrtypes.InitialFeePool())
+	// TODO
+	// distrKeeper.SetFeePool(ctx, distrtypes.InitialFeePool())
 	distrParams := distrtypes.DefaultParams()
 	distrParams.CommunityTax = math.LegacyNewDecWithPrec(2, 2)
-	distrParams.BaseProposerReward = math.LegacyNewDecWithPrec(1, 2)
-	distrParams.BonusProposerReward = math.LegacyNewDecWithPrec(4, 2)
-	distrKeeper.SetParams(ctx, distrParams)
+	// distrParams.BaseProposerReward = math.LegacyNewDecWithPrec(1, 2)
+	// distrParams.BonusProposerReward = math.LegacyNewDecWithPrec(4, 2)
+	// distrKeeper.SetParams(ctx, distrParams)
 	stakingKeeper.SetHooks(stakingtypes.NewMultiStakingHooks(distrKeeper.Hooks()))
 
 	feeCollectorAcc := authtypes.NewEmptyModuleAccount(authtypes.FeeCollectorName)
@@ -284,11 +301,11 @@ func CreateTestFixture(t *testing.T) TestFixture {
 
 // NewTestMsgCreateValidator test msg creator
 func NewTestMsgCreateValidator(
-	address sdk.ValAddress, pubKey cryptotypes.PubKey, amt sdk.Int,
+	address sdk.ValAddress, pubKey cryptotypes.PubKey, amt math.Int,
 ) *stakingtypes.MsgCreateValidator {
 	commission := stakingtypes.NewCommissionRates(math.LegacyZeroDec(), math.LegacyZeroDec(), math.LegacyZeroDec())
 	msg, _ := stakingtypes.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(denoms.NIBI, amt),
+		address.String(), pubKey, sdk.NewCoin(denoms.NIBI, amt),
 		stakingtypes.Description{}, commission, math.OneInt(),
 	)
 
@@ -341,7 +358,7 @@ func Setup(t *testing.T) (TestFixture, types.MsgServer) {
 	require.NoError(t, err)
 	_, err = sh.CreateValidator(fixture.Ctx, NewTestMsgCreateValidator(ValAddrs[4], ValPubKeys[4], testStakingAmt))
 	require.NoError(t, err)
-	staking.EndBlocker(fixture.Ctx, &fixture.StakingKeeper)
+	// staking.EndBlocker(fixture.Ctx, &fixture.StakingKeeper) // TODO
 
 	return fixture, h
 }
