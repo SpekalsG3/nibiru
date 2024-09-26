@@ -280,22 +280,17 @@ var xxx_messageInfo_MsgDelegateFeedConsentResponse proto.InternalMessageInfo
 // MsgEditOracleParams: gRPC tx message for updating the x/oracle module params
 // [SUDO] Only callable by sudoers.
 type MsgEditOracleParams struct {
-	Sender     string                 `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
-	VotePeriod *cosmossdk_io_math.Int `protobuf:"bytes,2,opt,name=vote_period,json=votePeriod,proto3,customtype=cosmossdk.io/math.Int" json:"vote_period,omitempty"`
-	// vote_threshold: [cosmossdk.io/math.LegacyDec] TODO:
-	VoteThreshold *cosmossdk_io_math.LegacyDec `protobuf:"bytes,3,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"vote_threshold,omitempty"`
-	// reward_band: [cosmossdk.io/math.LegacyDec] TODO:
-	RewardBand *cosmossdk_io_math.LegacyDec `protobuf:"bytes,4,opt,name=reward_band,json=rewardBand,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"reward_band,omitempty"`
-	Whitelist  []string                     `protobuf:"bytes,5,rep,name=whitelist,proto3" json:"whitelist,omitempty"`
-	// slash_fraction: [cosmossdk.io/math.LegacyDec] TODO:
-	SlashFraction *cosmossdk_io_math.LegacyDec `protobuf:"bytes,6,opt,name=slash_fraction,json=slashFraction,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"slash_fraction,omitempty"`
-	SlashWindow   *cosmossdk_io_math.Int       `protobuf:"bytes,7,opt,name=slash_window,json=slashWindow,proto3,customtype=cosmossdk.io/math.Int" json:"slash_window,omitempty"`
-	// min_valid_per_window: [cosmossdk.io/math.LegacyDec] TODO:
+	Sender             string                       `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
+	VotePeriod         *cosmossdk_io_math.Int       `protobuf:"bytes,2,opt,name=vote_period,json=votePeriod,proto3,customtype=cosmossdk.io/math.Int" json:"vote_period,omitempty"`
+	VoteThreshold      *cosmossdk_io_math.LegacyDec `protobuf:"bytes,3,opt,name=vote_threshold,json=voteThreshold,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"vote_threshold,omitempty"`
+	RewardBand         *cosmossdk_io_math.LegacyDec `protobuf:"bytes,4,opt,name=reward_band,json=rewardBand,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"reward_band,omitempty"`
+	Whitelist          []string                     `protobuf:"bytes,5,rep,name=whitelist,proto3" json:"whitelist,omitempty"`
+	SlashFraction      *cosmossdk_io_math.LegacyDec `protobuf:"bytes,6,opt,name=slash_fraction,json=slashFraction,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"slash_fraction,omitempty"`
+	SlashWindow        *cosmossdk_io_math.Int       `protobuf:"bytes,7,opt,name=slash_window,json=slashWindow,proto3,customtype=cosmossdk.io/math.Int" json:"slash_window,omitempty"`
 	MinValidPerWindow  *cosmossdk_io_math.LegacyDec `protobuf:"bytes,8,opt,name=min_valid_per_window,json=minValidPerWindow,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"min_valid_per_window,omitempty"`
 	TwapLookbackWindow *cosmossdk_io_math.Int       `protobuf:"bytes,9,opt,name=twap_lookback_window,json=twapLookbackWindow,proto3,customtype=cosmossdk.io/math.Int" json:"twap_lookback_window,omitempty"`
 	MinVoters          *cosmossdk_io_math.Int       `protobuf:"bytes,10,opt,name=min_voters,json=minVoters,proto3,customtype=cosmossdk.io/math.Int" json:"min_voters,omitempty"`
-	// VoteThreshold: [cosmossdk.io/math.LegacyDec] TODO:
-	ValidatorFeeRatio *cosmossdk_io_math.LegacyDec `protobuf:"bytes,11,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"validator_fee_ratio,omitempty"`
+	ValidatorFeeRatio  *cosmossdk_io_math.LegacyDec `protobuf:"bytes,11,opt,name=validator_fee_ratio,json=validatorFeeRatio,proto3,customtype=cosmossdk.io/math.LegacyDec" json:"validator_fee_ratio,omitempty"`
 }
 
 func (m *MsgEditOracleParams) Reset()         { *m = MsgEditOracleParams{} }
